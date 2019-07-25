@@ -41,7 +41,7 @@ Using the APIs
 
 All calls to the API endpoints require authentication with username and API key. These can be submitted as GET parameters (e.g. ``?username=demo&api_key=e6282adabed84e39ffe451f8bf6ff1a67c1fc9f2``) or in the  header (e.g. ``Authorization: ApiKey demo:e6282adabed84e39ffe451f8bf6ff1a67c1fc9f2``).
 
-There are a number of API endpoints in the Archivematica Dashboard, some of which are proxies to the Storage Service. For resource and endpoint descriptions, consult the :ref:`am-api-reference.rst`
+There are a number of API endpoints in the Archivematica Dashboard, some of which are proxies to the Storage Service. For resource and endpoint descriptions, consult the :ref:`am-api-reference.rst` section.
 
 .. _api-overview-auth:
 
