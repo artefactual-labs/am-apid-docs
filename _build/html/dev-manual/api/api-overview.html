@@ -1,0 +1,214 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>API overview &#8212; Archivematica 1.9.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Reference" href="api-reference.html" />
+    <link rel="prev" title="Developer’s manual" href="../index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api-reference.html" title="Reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Developer’s manual"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../contents.html">Archivematica 1.9.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Developer’s manual</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="api-overview">
+<span id="am-api-overview"></span><h1>API overview<a class="headerlink" href="#api-overview" title="Permalink to this headline">¶</a></h1>
+<p>Archivematica exposes services and resources with the following REST-style APIs that were built using Tastypie, a webservice API framework for Django:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#am-api-intro"><span class="std std-ref">Archivematica API</span></a></li>
+<li><a class="reference internal" href="#ss-api-intro"><span class="std std-ref">Storage Service API</span></a></li>
+</ul>
+</div></blockquote>
+<p>The Archivematica and Storage service APIs are designed to help you create custom solutions or integrate with RESTful APIs.</p>
+<div class="section" id="archivematica-api">
+<span id="am-api-intro"></span><h2>Archivematica API<a class="headerlink" href="#archivematica-api" title="Permalink to this headline">¶</a></h2>
+<p>The Archivematica API enables the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Coverage of some basic workflow functionality (e.g. listing and approving workflow tasks awaiting decision).</li>
+<li>Proxy support to the Storage Service.</li>
+<li>Exposing unit status or processing configuration details.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="storage-service-api">
+<span id="ss-api-intro"></span><h2>Storage Service API<a class="headerlink" href="#storage-service-api" title="Permalink to this headline">¶</a></h2>
+<p>If your system configuration includes the Archivematica Storage Service, then you may find the Storage Service API helpful for retrieving information about the following resources:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Pipeline</li>
+<li>Space</li>
+<li>Location</li>
+</ul>
+</div></blockquote>
+<p>Like the Archivematica API, the Storage Service API is written using TastyPie, and endpoints require authentication with a username and API key. See <a class="reference internal" href="#api-overview-auth"><span class="std std-ref">Authentication</span></a> for additional information.</p>
+</div>
+</div>
+<div class="section" id="using-the-apis">
+<h1>Using the APIs<a class="headerlink" href="#using-the-apis" title="Permalink to this headline">¶</a></h1>
+<p>All calls to the API endpoints require authentication with username and API key. These can be submitted as GET parameters (e.g. <code class="docutils literal notranslate"><span class="pre">?username=demo&amp;api_key=e6282adabed84e39ffe451f8bf6ff1a67c1fc9f2</span></code>) or in the  header (e.g. <code class="docutils literal notranslate"><span class="pre">Authorization:</span> <span class="pre">ApiKey</span> <span class="pre">demo:e6282adabed84e39ffe451f8bf6ff1a67c1fc9f2</span></code>).</p>
+<p>There are a number of API endpoints in the Archivematica Dashboard, some of which are proxies to the Storage Service. For resource and endpoint descriptions, consult the <a class="reference internal" href="api-reference.html#am-api-reference-rst"><span class="std std-ref">Reference</span></a></p>
+<div class="section" id="authentication">
+<span id="api-overview-auth"></span><h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<p>Archivematica’s Dashboard provides a simple cookie-based user authentication system using the Django authentication framework. Only authenticated users have access to the data.</p>
+<p>Both the Archivematica API and Storage Service API use GET parameters by default to give access to authenticated users.</p>
+<p>When setting GET parameters, the format is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>?username=&lt;username&gt;&amp;api_key=&lt;api_key&gt;
+</pre></div>
+</div>
+<p>If you do not want to pass unencrypted user data via the request header, you can pass an API key value as part of the header with each request.</p>
+<p>When passing an API key value as part of the header, the format is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ApiKey</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">api_key</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="generating-an-api-key-for-a-user">
+<h2>Generating an API key for a user<a class="headerlink" href="#generating-an-api-key-for-a-user" title="Permalink to this headline">¶</a></h2>
+<p>API keys are associated with user accounts, which you can manage in the Dashboard Administration tab. Archivematica users fall into two categories– administrators and non-administrators. <a class="reference external" href="https://www.archivematica.org/en/docs/archivematica-1.9/admin-manual/installation-setup/customization/dashboard-config/#admin-dashboard-users" title="(in Archivematica v1.9)"><span>Users</span></a> who are administrators can create and edit user accounts. Administrators can also generate an API key for any user account in the database.</p>
+<p>To generate an API key for an existing user in Archivematica:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Navigate to <strong>Admin &gt; Users</strong>, and then you will be redirected to the Users page.</li>
+<li>Select the user for whom you would like to generate an API key, and click their username or the <strong>Edit</strong> button. Archivematica will load the user’s Profile page.</li>
+<li>Click to enable the <strong>Regenerate API key</strong> box.</li>
+<li>Then click <strong>Save</strong>.</li>
+<li>In the <strong>Users</strong> page, click the username again to return to that user’s profile, and then you will see the regenerated API key.</li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In the Storage Service, an API key is automatically generated for each new user. If you change the password for a given user, then a new API key will be randomly generated for that user.</p>
+</div>
+</div>
+<div class="section" id="using-an-api-key-in-a-request">
+<h2>Using an API key in a request<a class="headerlink" href="#using-an-api-key-in-a-request" title="Permalink to this headline">¶</a></h2>
+<p>An API key value must be passed with each request to the API endpoints, or no response will be returned. Below is an example of using <a class="reference external" href="https://curl.haxx.se/">curl</a> to submit the requests with the API key in the header.</p>
+<p><em>Example request</em> (using curl):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> \
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">sandbox</span><span class="o">.</span><span class="n">archivematica</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">transfer</span><span class="o">/</span><span class="n">completed</span><span class="o">/</span> \
+<span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Authorization: ApiKey admin:90e458ded261c7a5&#39;</span>
+</pre></div>
+</div>
+<p><em>Example request header</em>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>GET /api/transfer/completed/? HTTP/1.1
+Host: sandbox.archivematica.org
+Authorization: ApiKey admin:90e458ded261c7a5
+</pre></div>
+</div>
+<p><em>Example response header</em>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span>
+<span class="n">status</span><span class="p">:</span> <span class="mi">200</span>
+<span class="n">Server</span><span class="p">:</span> <span class="n">nginx</span>
+<span class="n">Date</span><span class="p">:</span> <span class="n">Fri</span><span class="p">,</span> <span class="mi">19</span> <span class="n">Jul</span> <span class="mi">2019</span> <span class="mi">02</span><span class="p">:</span><span class="mi">26</span><span class="p">:</span><span class="mi">54</span> <span class="n">GMT</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span>
+<span class="n">Transfer</span><span class="o">-</span><span class="n">Encoding</span><span class="p">:</span> <span class="n">chunked</span>
+<span class="n">Connection</span><span class="p">:</span> <span class="n">keep</span><span class="o">-</span><span class="n">alive</span>
+<span class="n">Vary</span><span class="p">:</span> <span class="n">Accept</span><span class="o">-</span><span class="n">Language</span><span class="p">,</span> <span class="n">Cookie</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Language</span><span class="p">:</span> <span class="n">en</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API overview</a><ul>
+<li><a class="reference internal" href="#archivematica-api">Archivematica API</a></li>
+<li><a class="reference internal" href="#storage-service-api">Storage Service API</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-the-apis">Using the APIs</a><ul>
+<li><a class="reference internal" href="#authentication">Authentication</a></li>
+<li><a class="reference internal" href="#generating-an-api-key-for-a-user">Generating an API key for a user</a></li>
+<li><a class="reference internal" href="#using-an-api-key-in-a-request">Using an API key in a request</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">Developer’s manual</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api-reference.html"
+                        title="next chapter">Reference</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/dev-manual/api/api-overview.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="api-reference.html" title="Reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Developer’s manual"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../contents.html">Archivematica 1.9.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Developer’s manual</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Artefactual Systems Inc..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.1.
+    </div>
+  </body>
+</html>
