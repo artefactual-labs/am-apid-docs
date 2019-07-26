@@ -9,10 +9,20 @@ Quickly review all available resources for the Archivematica API and Storage Ser
 Archivematica API
 ==================
 
-* Transfer
+The Archivematica API provides access to the following categories of resources:
+
+    * Transfer
+    * Ingest
+    * Administration
+    * Unit
+    * Other
+    * Beta endpointsq
 
 
 
 Storage Service API
 ====================
 
+The Storage Service API provides access to the following categories of resources:
+
+    * 
