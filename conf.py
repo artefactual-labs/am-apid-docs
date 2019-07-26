@@ -206,7 +206,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'apid-docsdoc'
+htmlhelp_basename = 'am-apid-docsdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -226,7 +226,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'apid-docs.tex', u'apid-docs Documentation',
+  ('index', 'am-apid-docs.tex', u'am-apid-docs Documentation',
    u'currmie', 'manual'),
 ]
 
@@ -256,7 +256,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'apid-docs', u'apid-docs Documentation',
+    ('index', 'am-apid-docs', u'am-apid-docs Documentation',
      [u'currmie'], 1)
 ]
 
@@ -270,7 +270,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'apid-docs', u'dev-menaul Documentation',
+  ('index', 'am-apid-docs', u'dev-manual Documentation',
    u'currmie', 'dev-manual', 'One line description of project.',
    'Miscellaneous'),
 ]

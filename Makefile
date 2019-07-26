@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = apid-docs
+SPHINXPROJ    = am-apid-docs
 SOURCEDIR     = .
 BUILDDIR      = _build
 
