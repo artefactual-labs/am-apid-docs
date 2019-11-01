@@ -34,6 +34,7 @@ If your system configuration includes the Archivematica Storage Service, then yo
     * Pipeline
     * Space
     * Location
+    * Package
 
 See 
 
