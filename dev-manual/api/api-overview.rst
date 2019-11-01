@@ -35,9 +35,7 @@ If your system configuration includes the Archivematica Storage Service, then yo
     * Space
     * Location
 
-See 
-
-Like the Archivematica API, the Storage Service API is written using TastyPie, and endpoints require authentication with a username and API key. See :ref:`Authentication<api-overview-auth>` for additional information.
+Storage Service API endpoints require authentication with a username and API key. See :ref:`Authentication<api-overview-auth>` for additional information.
 
 ===============
 Using the APIs
