@@ -45,26 +45,164 @@
 <p>Quickly review all available resources for the Archivematica API and Storage Service API with this reference.</p>
 <div class="section" id="archivematica-api">
 <h2>Archivematica API<a class="headerlink" href="#archivematica-api" title="Permalink to this headline">¶</a></h2>
-<p>The Archivematica API provides access to the following categories of resources:</p>
+<p>The Archivematica API provides:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Transfer</li>
-<li>Ingest</li>
-<li>Administration</li>
-<li>Unit</li>
-<li>Other</li>
-<li>Beta endpointsq</li>
+<li>Coverage of some basic workflow functionality.</li>
+<li>Proxy support to the Storage Service.</li>
+<li>Exposure to unit status or processing configuration details.</li>
+</ul>
+</div></blockquote>
+<p>Endpoints for the Archivematica API have been organized into the following resource categories:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#transfer-resource-rst"><span class="std std-ref">Transfer</span></a></li>
+<li><a class="reference internal" href="#ingest-resource-rst"><span class="std std-ref">Ingest</span></a></li>
+<li><a class="reference internal" href="#admin-resource-rst"><span class="std std-ref">Administration</span></a></li>
+<li><a class="reference internal" href="#unit-resource-rst"><span class="std std-ref">Unit</span></a></li>
+<li><a class="reference internal" href="#other-resource-rst"><span class="std std-ref">Other</span></a></li>
+<li><a class="reference internal" href="#beta-rst"><span class="std std-ref">Beta</span></a></li>
 </ul>
 </div></blockquote>
 </div>
+<div class="section" id="endpoints-for-archivematica-api">
+<h2>Endpoints for Archivematica API<a class="headerlink" href="#endpoints-for-archivematica-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="transfer">
+<span id="transfer-resource-rst"></span><h3>Transfer<a class="headerlink" href="#transfer" title="Permalink to this headline">¶</a></h3>
+<p>Transfer refers to the process of moving any set of digital objects into Archivematica and turning the materials into a Submission Information Package (SIP). The Transfer tab prepares your content for preservation in Archivematica.</p>
+<div class="section" id="start-transfer">
+<h4>Start Transfer<a class="headerlink" href="#start-transfer" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="41%" />
+<col width="49%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">POST</span></code></td>
+<td><strong>/api/transfer/start_transfer/</strong></td>
+<td><em>Initiates a transfer in Archivematica.</em></td>
+</tr>
+</tbody>
+</table>
+<p>Request body parameters:</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The parameters in the following table can be submitted as a JSON
+object with key-value pairs in the request body.</p>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="93%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">name</span></code></td>
+<td>Name of transfer</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">type</span></code></td>
+<td>Type of the new transfer (e.g. standard, unzipped bag,
+zipped bag, dspace).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">accession</span></code></td>
+<td>Accession number of new transfer.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">paths[]</span></code></td>
+<td>List of base64-encoded
+<code class="docutils literal notranslate"><span class="pre">&lt;location_uuid&gt;:&lt;relative_path&gt;</span></code> to be copied into the new transfer. Location UUIDs should be associated with this pipeline, and relative path should be relative to the location.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">row_ids[]</span></code></td>
+<td>ID of the associated TransferMetadataSet for disk image
+ingest. Can be provided as <code class="docutils literal notranslate"><span class="pre">[&quot;&quot;]</span></code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Example request:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">request</span> <span class="n">POST</span> \
+  <span class="o">--</span><span class="n">url</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">am110rpm</span><span class="o">.</span><span class="n">qa</span><span class="o">.</span><span class="n">archivematica</span><span class="o">.</span><span class="n">net</span><span class="p">:</span><span class="mi">81</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">transfer</span><span class="o">/</span><span class="n">start_transfer</span><span class="o">/</span> \
+  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Accept: */*&#39;</span> \
+  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Authorization: ApiKey test:eb9b3934c56de5c4eb22b2649637c9416e8912f1&#39;</span> \
+  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Cache-Control: no-cache&#39;</span> \
+  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Connection: keep-alive&#39;</span> \
+  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Content-Type: application/x-www-form-urlencoded&#39;</span> \
+  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Host: am110rpm.qa.archivematica.net:81&#39;</span> \
+  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Postman-Token: 905b608d-c954-4a1f-85db-f5fd29350072,273ac01a-b726-46cd-85f7-cac4c85db140&#39;</span> \
+  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;User-Agent: PostmanRuntime/7.15.0&#39;</span> \
+  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;accept-encoding: gzip, deflate&#39;</span> \
+  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;cache-control: no-cache&#39;</span> \
+  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;content-length: 228&#39;</span> \
+  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;cookie: csrftoken=vCJt5dUB9WnKKgLAFN8mEoyrFiZSGm0D&#39;</span> \
+  <span class="o">--</span><span class="n">cookie</span> <span class="n">csrftoken</span><span class="o">=</span><span class="n">vCJt5dUB9WnKKgLAFN8mEoyrFiZSGm0D</span> \
+  <span class="o">--</span><span class="n">data</span> <span class="s1">&#39;name=mc_api_transfer&amp;type=standard&amp;accession=2019-1234&amp;paths%5B%5D=&#39;</span>\<span class="s1">&#39;&#39;</span><span class="n">M2JlYzc0MmYtMjBjMy00ZjBlLThjMzEtZGFmYTVlYzE4ZmRmOmNlbnRvcy9hcmNoaXZlbWF0aWNhLXNhbXBsZWRhdGEvU2FtcGxlVHJhbnNmZXJzL0RlbW9UcmFuc2ZlckNTVg</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="o">&amp;</span><span class="n">rows_id</span><span class="o">%</span><span class="mi">5</span><span class="n">B</span><span class="o">%</span><span class="mi">5</span><span class="n">D</span><span class="o">=</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<p>Example response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span>
+<span class="n">status</span><span class="p">:</span> <span class="mi">200</span>
+<span class="n">Server</span><span class="p">:</span> <span class="n">nginx</span><span class="o">/</span><span class="mf">1.12</span><span class="o">.</span><span class="mi">2</span>
+<span class="n">Date</span><span class="p">:</span> <span class="n">Thu</span><span class="p">,</span> <span class="mi">15</span> <span class="n">Aug</span> <span class="mi">2019</span> <span class="mi">06</span><span class="p">:</span><span class="mi">37</span><span class="p">:</span><span class="mi">41</span> <span class="n">GMT</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span>
+<span class="n">Transfer</span><span class="o">-</span><span class="n">Encoding</span><span class="p">:</span> <span class="n">chunked</span>
+<span class="n">Connection</span><span class="p">:</span> <span class="n">keep</span><span class="o">-</span><span class="n">alive</span>
+<span class="n">Vary</span><span class="p">:</span> <span class="n">Accept</span><span class="o">-</span><span class="n">Language</span><span class="p">,</span> <span class="n">Cookie</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Language</span><span class="p">:</span> <span class="n">en</span>
+
+<span class="p">{</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/var/archivematica/sharedDirectory/watchedDirectories/activeTransfers/standardTransfer/mc_api_transfer_1/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Copy successful.&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ingest">
+<span id="ingest-resource-rst"></span><h3>Ingest<a class="headerlink" href="#ingest" title="Permalink to this headline">¶</a></h3>
+<p>Ingest refers to the process by which digital objects are packaged into SIPs and run through several microservices, including normalization, packaging into an AIP and generation of a DIP.</p>
+</div>
+<div class="section" id="administration">
+<span id="admin-resource-rst"></span><h3>Administration<a class="headerlink" href="#administration" title="Permalink to this headline">¶</a></h3>
+<p>Administration enables you to configure various parts of the application and manage integrations and users.</p>
+</div>
+<div class="section" id="unit">
+<span id="unit-resource-rst"></span><h3>Unit<a class="headerlink" href="#unit" title="Permalink to this headline">¶</a></h3>
+<p>Unit refers to “a type of Package Description that is specialized to provide information about an Archival Information Unit for use by Access Aids.” (OAIS, p.1-13, Section 1.7.2)</p>
+</div>
+<div class="section" id="other">
+<span id="other-resource-rst"></span><h3>Other<a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h3>
+<p>Other is a generic resource category that includes path metadata associated with level of description, and it also includes name associated with any customized processing configuration.</p>
+</div>
+<div class="section" id="beta">
+<span id="beta-rst"></span><h3>Beta<a class="headerlink" href="#beta" title="Permalink to this headline">¶</a></h3>
+<p>Beta refers to functionality for which the API endpoints are still in-flux and that could potentially change.</p>
+</div>
+</div>
 <div class="section" id="storage-service-api">
 <h2>Storage Service API<a class="headerlink" href="#storage-service-api" title="Permalink to this headline">¶</a></h2>
-<p>The Storage Service API provides access to the following categories of resources:</p>
+<p>The Storage Service API provides access to the following resources via endpoints:</p>
 <blockquote>
 <div><ul class="simple">
-<li></li>
+<li><a class="reference internal" href="#ss-pipeline-rst"><span class="std std-ref">Pipeline</span></a></li>
+<li><a class="reference internal" href="#ss-space-rst"><span class="std std-ref">Space</span></a></li>
+<li><a class="reference internal" href="#ss-location-rst"><span class="std std-ref">Location</span></a></li>
+<li><a class="reference internal" href="#ss-package-rst"><span class="std std-ref">Package</span></a></li>
 </ul>
 </div></blockquote>
+<div class="section" id="pipeline">
+<span id="ss-pipeline-rst"></span><h3>Pipeline<a class="headerlink" href="#pipeline" title="Permalink to this headline">¶</a></h3>
+<p>A pipeline is a representation of an Archivematica installation that is assigned a unique universal identifier (UUID) when it is registered with the Storage Service. The UUID provides information about your server and all associated clients.</p>
+</div>
+<div class="section" id="space">
+<span id="ss-space-rst"></span><h3>Space<a class="headerlink" href="#space" title="Permalink to this headline">¶</a></h3>
+<p>A storage space contains all the information necessary to connect to the physical storage. It is where the files are stored. Protocol-specific information, like an NFS export path and hostname, or the username of a system accessible only via SSH, is stored here. All locations must be contained in a space.</p>
+</div>
+<div class="section" id="location">
+<span id="ss-location-rst"></span><h3>Location<a class="headerlink" href="#location" title="Permalink to this headline">¶</a></h3>
+<p>A location is a subdivision of a space. Each location is assigned a specific purpose, such as AIP storage, DIP storage, transfer source or transfer backlog, in order to provide an organized way to structure content within a space.</p>
+</div>
+<div class="section" id="package">
+<span id="ss-package-rst"></span><h3>Package<a class="headerlink" href="#package" title="Permalink to this headline">¶</a></h3>
+<p>A package is a bundle of one or more files transferred from an external service; for example, a package may be an AIP, a backlogged transfer, or a DIP. Each package is stored in a location.</p>
+</div>
 </div>
 </div>
 
@@ -78,7 +216,25 @@
   <ul>
 <li><a class="reference internal" href="#">Reference</a><ul>
 <li><a class="reference internal" href="#archivematica-api">Archivematica API</a></li>
-<li><a class="reference internal" href="#storage-service-api">Storage Service API</a></li>
+<li><a class="reference internal" href="#endpoints-for-archivematica-api">Endpoints for Archivematica API</a><ul>
+<li><a class="reference internal" href="#transfer">Transfer</a><ul>
+<li><a class="reference internal" href="#start-transfer">Start Transfer</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ingest">Ingest</a></li>
+<li><a class="reference internal" href="#administration">Administration</a></li>
+<li><a class="reference internal" href="#unit">Unit</a></li>
+<li><a class="reference internal" href="#other">Other</a></li>
+<li><a class="reference internal" href="#beta">Beta</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#storage-service-api">Storage Service API</a><ul>
+<li><a class="reference internal" href="#pipeline">Pipeline</a></li>
+<li><a class="reference internal" href="#space">Space</a></li>
+<li><a class="reference internal" href="#location">Location</a></li>
+<li><a class="reference internal" href="#package">Package</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

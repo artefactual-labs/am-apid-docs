@@ -1,8 +1,8 @@
 .. _contents:
 
-=============================
- AtoM documentation contents
-=============================
+======================================
+ Archivematica documentation contents
+======================================
 
 .. toctree::
 
