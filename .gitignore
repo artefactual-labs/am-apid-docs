@@ -1,0 +1,10 @@
+# ignore api-d build files
+
+/_build
+
+# ignorehidden and/or system files 
+
+*.DS_Store
+*~
+*.mo
+.env
