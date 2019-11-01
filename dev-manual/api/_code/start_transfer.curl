@@ -1,0 +1,16 @@
+curl --request POST \
+  --url http://am110rpm.qa.archivematica.net:81/api/transfer/start_transfer/ \
+  --header 'Accept: */*' \
+  --header 'Authorization: ApiKey test:eb9b3934c56de5c4eb22b2649637c9416e8912f1' \
+  --header 'Cache-Control: no-cache' \
+  --header 'Connection: keep-alive' \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --header 'Host: am110rpm.qa.archivematica.net:81' \
+  --header 'Postman-Token: 905b608d-c954-4a1f-85db-f5fd29350072,273ac01a-b726-46cd-85f7-cac4c85db140' \
+  --header 'User-Agent: PostmanRuntime/7.15.0' \
+  --header 'accept-encoding: gzip, deflate' \
+  --header 'cache-control: no-cache' \
+  --header 'content-length: 228' \
+  --header 'cookie: csrftoken=vCJt5dUB9WnKKgLAFN8mEoyrFiZSGm0D' \
+  --cookie csrftoken=vCJt5dUB9WnKKgLAFN8mEoyrFiZSGm0D \
+  --data 'name=mc_api_transfer&type=standard&accession=2019-1234&paths%5B%5D='\''M2JlYzc0MmYtMjBjMy00ZjBlLThjMzEtZGFmYTVlYzE4ZmRmOmNlbnRvcy9hcmNoaXZlbWF0aWNhLXNhbXBsZWRhdGEvU2FtcGxlVHJhbnNmZXJzL0RlbW9UcmFuc2ZlckNTVg%3D%3D'\''&rows_id%5B%5D='
