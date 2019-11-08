@@ -35,7 +35,7 @@ Transfer
 
 Transfer refers to the process of moving any set of digital objects into Archivematica and turning the materials into a Submission Information Package (SIP). The Transfer tab prepares your content for preservation in Archivematica.
 
-Start Transfer
+Start transfer
 ^^^^^^^^^^^^^^
 
 ========  ==================================  =================================
@@ -72,7 +72,81 @@ Example response:
 
 .. literalinclude:: _code/start_transfer_response.curl
 
+List unapproved transfer(s)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+========  ==============================  ====================================
+``GET``   **/api/transfer/unapproved/**    *Returns a list of transfers awaiting approval*
+========  ==============================  ====================================
+
+Example request:
+
+.. literalinclude:: _code/list_transfer.curl
+
+Response definitions:
+
+=============   =============    ==============================================
+
+``message``                      "Fetched unapproved transfers successfully."
+
+``results``                      List of dicts with the following keys:
+
+                ``type``         Transfer type. One of: standard, unzipped 
+                                 bag, zipped bag, dspace.
+
+                ``directory``    Directory the transfer is in currently.
+
+                ``uuid``         UUID of the transfer.
+
+=============   =============    ==============================================
+
+Example response:
+
+.. literalinclude:: _code/list_transfer_response.curl
+
 .. _ingest-resource.rst:
+
+Approve transfer(s)
+^^^^^^^^^^^^^^^^^^^^
+
+========  ==========================  =========================================
+``POST``  **/api/transfer/approve/**  *Approve a transfer awaiting initiation.*
+========  ==========================  =========================================
+
+Request body parameters:
+
+=============  ================================================================
+
+``type``           Type of the transfer (e.g. standard, unzipped bag,
+                   zipped bag, dspace) to approve.
+
+``directory``      Directory the transfer is in currently.
+
+=============  ================================================================
+
+Example request:
+
+.. literalinclude:: _code/approve_transfer.curl
+
+Example response:
+
+.. literalinclude:: _code/approve_transfer_response.curl
+
+Status
+^^^^^^^
+
+========  =================================   =================================
+``GET``   **/api/transfer/status/<transfer    *Returns the status of a
+          UUID>/**                            transfer* 
+========  =================================   =================================
+
+Example request:
+
+.. literalinclude:: _code/status_request.curl
+
+Example response:
+
+.. literalinclude:: _code/status_response.curl
 
 Ingest
 -------
