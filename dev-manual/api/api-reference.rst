@@ -14,7 +14,9 @@ The Archivematica API provides:
     * Coverage of some basic workflow functionality.
     * Proxy support to the Storage Service.
     * Exposure to unit status or processing configuration details.
-
+    
+Archivematica API resources and endpoints
+==========================================
 
 Endpoints for the Archivematica API have been organized into the following resource categories:
 
@@ -24,9 +26,6 @@ Endpoints for the Archivematica API have been organized into the following resou
     * :ref:`unit-resource.rst`
     * :ref:`other-resource.rst`
     * :ref:`beta.rst`
-    
-Endpoints for Archivematica API
-================================
 
 .. _transfer-resource.rst:
 
@@ -83,28 +82,34 @@ Example request:
 
 .. literalinclude:: _code/list_transfer.curl
 
-Response definitions:
-
-=============   =============    ==============================================
-
-``message``                      "Fetched unapproved transfers successfully."
-
-``results``                      List of dicts with the following keys:
-
-                ``type``         Transfer type. One of: standard, unzipped 
-                                 bag, zipped bag, dspace.
-
-                ``directory``    Directory the transfer is in currently.
-
-                ``uuid``         UUID of the transfer.
-
-=============   =============    ==============================================
-
 Example response:
 
 .. literalinclude:: _code/list_transfer_response.curl
 
-.. _ingest-resource.rst:
+Response definitions:
+
+==================   =========================================  ===============
+
+**Response item**    **Description**                            
+
+``message``          "Fetched unapproved transfers 
+                     successfully."
+
+``results``          List of dicts with the following keys:     |   
+                     
+                     ``type``                                   Transfer
+                                                                type. 
+
+                                                                One of: standard,     unzipped bag, zipped bag, dspace.
+
+                     ``directory``                              Directory 
+                                                                the 
+                                                                transfer is in currently.    
+
+                     ``uuid``                                   UUID of the 
+                                                                transfer.      
+
+==================   =========================================  ===============
 
 Approve transfer(s)
 ^^^^^^^^^^^^^^^^^^^^
@@ -112,6 +117,10 @@ Approve transfer(s)
 ========  ==========================  =========================================
 ``POST``  **/api/transfer/approve/**  *Approve a transfer awaiting initiation.*
 ========  ==========================  =========================================
+
+Example request:
+
+.. literalinclude:: _code/approve_transfer.curl
 
 Request body parameters:
 
@@ -124,13 +133,21 @@ Request body parameters:
 
 =============  ================================================================
 
-Example request:
-
-.. literalinclude:: _code/approve_transfer.curl
-
 Example response:
 
 .. literalinclude:: _code/approve_transfer_response.curl
+
+Response definitions:
+
+==================   ==========================================================
+
+**Response item**    **Description**                            
+
+``message``          "Approval successful."
+
+``uuid``             UUID of the approved transfer  
+
+==================   ==========================================================
 
 Status
 ^^^^^^^
@@ -147,6 +164,131 @@ Example request:
 Example response:
 
 .. literalinclude:: _code/status_response.curl
+
+Response definitions:
+
+=================       ============================     ======================
+
+**Response item**       **Description**                  **Data type**
+
+``status``              One of FAILED, REJECTED,         string
+                        USER_INPUT, COMPLETE or
+                        PROCESSING                     
+
+``name``                Name of the transfer,            string
+                        e.g. "imgs"
+
+``sip_uuid``            If status is COMPLETE,           string
+                        this field will exist 
+                        with either the UUID 
+                        of the SIP or 'BACKLOG'
+
+``microservice``        Name of the current              string  
+                        microservice
+
+``directory``           Name of the directory,           string      
+                        e.g. "imgs-52dd0c01-e803-
+                        423a-be5f-b592b5d5d61c"
+
+``path``                Full path to the transfer,       string
+                        e.g. "/var/archivematica/
+                        sharedDirectory/watched
+                        Directories/SIPCreation/
+                        completedTransfers/imgs-
+                        52dd0c01-e803-423a-
+                        be5f-b592b5d5d61c/"
+
+``message``             "Fetched status from             string
+                        <transfer UUID>
+                        successfully."      
+
+``type``                "transfer"                       string
+
+``uuid``                UUID of the transfer,            string
+                        e.g. "52dd0c01-e803-423a-
+                        be5f-b592b5d5d61c"
+
+=================       ============================     ======================
+
+..  note::
+
+    For consumers of this endpoint, it is possible for Archivematica to return a status of COMPLETE without a sip_uuid. Consumers looking to use the UUID of the AIP that will be created following Ingest should therefore test for both a status of COMPLETE and the existence of sip_uuid that does not also equal BACKLOG to ensure that they retrieve it. This might mean an additional call to the status endpoint while this data becomes available.
+
+Hide
+^^^^^
+
+===========  =================================   ==============================
+``DELETE``   **/api/transfer/<transfer UUID>/    Hide a transfer
+             delete/**                          
+===========  =================================   ==============================
+
+Example request:
+
+.. literalinclude:: _code/hide_request.curl
+
+Example response:
+
+.. literalinclude:: _code/hide_response.curl
+
+Completed
+^^^^^^^^^^
+
+===========  =================================   ==============================
+``GET``      **/api/transfer/completed/**        Return list of Transfers that
+                                                 are completed.
+===========  =================================   ==============================
+
+Example request:
+
+.. literalinclude:: _code/completed_request.curl
+
+Example response:
+
+.. literalinclude:: _code/completed_response.curl
+
+Response definitions:
+
+==================   ==========================================================
+
+**Response item**    **Description**                            
+
+``message``          "Fetched completed transfers successfully."
+
+``results``          List of UUIDs of completed Transfers. 
+
+==================   ==========================================================
+
+Start reingest
+^^^^^^^^^^^^^^^
+
+===========  =================================   ==============================
+``POST``      **/api/transfer/reingest**         Start a full reingest.
+===========  =================================   ==============================
+
+Request body parameters:
+
+=============  ================================================================
+
+``name``       Name of the AIP. The AIP should also be found
+               at ``%sharedDirectory%/tmp/<name>``.
+
+``uuid``       UUID of the AIP to reingest.
+
+=============  ================================================================
+
+Response definitions:
+
+==================   ==========================================================
+
+**Response item**    **Description**                            
+
+``message``          "Approval successful."
+
+``reingest_uuid``    UUID of the reingested transfer.
+
+==================   ==========================================================
+
+.. _ingest-resource.rst:
 
 Ingest
 -------

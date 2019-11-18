@@ -53,6 +53,9 @@
 <li>Exposure to unit status or processing configuration details.</li>
 </ul>
 </div></blockquote>
+</div>
+<div class="section" id="archivematica-api-resources-and-endpoints">
+<h2>Archivematica API resources and endpoints<a class="headerlink" href="#archivematica-api-resources-and-endpoints" title="Permalink to this headline">¶</a></h2>
 <p>Endpoints for the Archivematica API have been organized into the following resource categories:</p>
 <blockquote>
 <div><ul class="simple">
@@ -64,14 +67,11 @@
 <li><a class="reference internal" href="#beta-rst"><span class="std std-ref">Beta</span></a></li>
 </ul>
 </div></blockquote>
-</div>
-<div class="section" id="endpoints-for-archivematica-api">
-<h2>Endpoints for Archivematica API<a class="headerlink" href="#endpoints-for-archivematica-api" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="transfer">
 <span id="transfer-resource-rst"></span><h3>Transfer<a class="headerlink" href="#transfer" title="Permalink to this headline">¶</a></h3>
 <p>Transfer refers to the process of moving any set of digital objects into Archivematica and turning the materials into a Submission Information Package (SIP). The Transfer tab prepares your content for preservation in Archivematica.</p>
 <div class="section" id="start-transfer">
-<h4>Start Transfer<a class="headerlink" href="#start-transfer" title="Permalink to this headline">¶</a></h4>
+<h4>Start transfer<a class="headerlink" href="#start-transfer" title="Permalink to this headline">¶</a></h4>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%" />
@@ -119,21 +119,14 @@ ingest. Can be provided as <code class="docutils literal notranslate"><span clas
 </table>
 <p>Example request:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">request</span> <span class="n">POST</span> \
-  <span class="o">--</span><span class="n">url</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">am110rpm</span><span class="o">.</span><span class="n">qa</span><span class="o">.</span><span class="n">archivematica</span><span class="o">.</span><span class="n">net</span><span class="p">:</span><span class="mi">81</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">transfer</span><span class="o">/</span><span class="n">start_transfer</span><span class="o">/</span> \
-  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Accept: */*&#39;</span> \
-  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Authorization: ApiKey test:eb9b3934c56de5c4eb22b2649637c9416e8912f1&#39;</span> \
-  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Cache-Control: no-cache&#39;</span> \
-  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Connection: keep-alive&#39;</span> \
-  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Content-Type: application/x-www-form-urlencoded&#39;</span> \
-  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Host: am110rpm.qa.archivematica.net:81&#39;</span> \
-  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Postman-Token: 905b608d-c954-4a1f-85db-f5fd29350072,273ac01a-b726-46cd-85f7-cac4c85db140&#39;</span> \
-  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;User-Agent: PostmanRuntime/7.15.0&#39;</span> \
-  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;accept-encoding: gzip, deflate&#39;</span> \
-  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;cache-control: no-cache&#39;</span> \
-  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;content-length: 228&#39;</span> \
-  <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;cookie: csrftoken=vCJt5dUB9WnKKgLAFN8mEoyrFiZSGm0D&#39;</span> \
-  <span class="o">--</span><span class="n">cookie</span> <span class="n">csrftoken</span><span class="o">=</span><span class="n">vCJt5dUB9WnKKgLAFN8mEoyrFiZSGm0D</span> \
-  <span class="o">--</span><span class="n">data</span> <span class="s1">&#39;name=mc_api_transfer&amp;type=standard&amp;accession=2019-1234&amp;paths%5B%5D=&#39;</span>\<span class="s1">&#39;&#39;</span><span class="n">M2JlYzc0MmYtMjBjMy00ZjBlLThjMzEtZGFmYTVlYzE4ZmRmOmNlbnRvcy9hcmNoaXZlbWF0aWNhLXNhbXBsZWRhdGEvU2FtcGxlVHJhbnNmZXJzL0RlbW9UcmFuc2ZlckNTVg</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="o">&amp;</span><span class="n">rows_id</span><span class="o">%</span><span class="mi">5</span><span class="n">B</span><span class="o">%</span><span class="mi">5</span><span class="n">D</span><span class="o">=</span><span class="s1">&#39;</span>
+  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">my_archivematica_instance</span><span class="o">.</span><span class="n">archivematica</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">transfer</span><span class="o">/</span>
+  <span class="n">start_transfer</span><span class="o">/</span> \
+  <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Authorization: ApiKey [_your_username_]:[_your_ApiKey_]&#39;</span> \
+  <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Content-Type: application/x-www-form-urlencoded&#39;</span> \
+  <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;name=mc_api_transfer&amp;type=standard&amp;accession=2019-1234&amp;paths%5B%5D=&#39;</span>\
+  <span class="s1">&#39;&#39;</span><span class="n">M2JlYzc0MmYtMjBjMy00ZjBlLThjMzEtZGFmYTVlYzE4ZmRmOmNlbnRvcy9hcmNoaXZlbWF0aWNh</span>
+  <span class="n">LXNhbXBsZWRhdGEvU2FtcGxlVHJhbnNmZXJzL0RlbW9UcmFuc2ZlckNTVg</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="o">&amp;</span><span class="n">rows_</span>
+  <span class="nb">id</span><span class="o">%</span><span class="mi">5</span><span class="n">B</span><span class="o">%</span><span class="mi">5</span><span class="n">D</span><span class="o">=</span><span class="s1">&#39;</span>
 </pre></div>
 </div>
 <p>Example response:</p>
@@ -148,11 +141,416 @@ ingest. Can be provided as <code class="docutils literal notranslate"><span clas
 <span class="n">Content</span><span class="o">-</span><span class="n">Language</span><span class="p">:</span> <span class="n">en</span>
 
 <span class="p">{</span>
-    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/var/archivematica/sharedDirectory/watchedDirectories/activeTransfers/standardTransfer/mc_api_transfer_1/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/var/archivematica/sharedDirectory/watchedDirectories/</span>
+    <span class="n">activeTransfers</span><span class="o">/</span><span class="n">standardTransfer</span><span class="o">/</span><span class="n">mc_api_transfer_1</span><span class="o">/</span><span class="s2">&quot;,</span>
     <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Copy successful.&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="list-unapproved-transfer-s">
+<h4>List unapproved transfer(s)<a class="headerlink" href="#list-unapproved-transfer-s" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="35%" />
+<col width="56%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">GET</span></code></td>
+<td><strong>/api/transfer/unapproved/</strong></td>
+<td><em>Returns a list of transfers awaiting approval</em></td>
+</tr>
+</tbody>
+</table>
+<p>Example request:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> \
+  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">my_archivematica_instance</span><span class="o">.</span><span class="n">archivematica</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">transfer</span><span class="o">/</span><span class="n">unapproved</span><span class="o">/</span> \
+  <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Authorization: ApiKey [_your_username_]:[_your_ApiKey_]&#39;</span> \
+  <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Content-Type: application/x-www-form-urlencoded&#39;</span>
+</pre></div>
+</div>
+<p>Example response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Fetched unapproved transfers successfully.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;directory&quot;</span><span class="p">:</span> <span class="s2">&quot;mc-api-test-1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;standard&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;f1bc64b5-5697-47fc-b3f3-ac92a1d1ebbb&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;directory&quot;</span><span class="p">:</span> <span class="s2">&quot;mc-api-test-2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;standard&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;3ed192dc-8fa4-4698-ab03-00688a4a2553&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Response definitions:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="36%" />
+<col width="48%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Response item</strong></td>
+<td><strong>Description</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">message</span></code></td>
+<td>“Fetched unapproved transfers
+successfully.”</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">results</span></code></td>
+<td><p class="first">List of dicts with the following keys:</p>
+<p><code class="docutils literal notranslate"><span class="pre">type</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">directory</span></code></p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">uuid</span></code></p>
+</td>
+<td><div class="first line-block">
+<div class="line"><br /></div>
+</div>
+<p>Transfer
+type.</p>
+<p>One of: standard,     unzipped bag, zipped bag, dspace.</p>
+<p>Directory
+the
+transfer is in currently.</p>
+<p class="last">UUID of the
+transfer.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="approve-transfer-s">
+<h4>Approve transfer(s)<a class="headerlink" href="#approve-transfer-s" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="35%" />
+<col width="55%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">POST</span></code></td>
+<td><strong>/api/transfer/approve/</strong></td>
+<td><em>Approve a transfer awaiting initiation.</em></td>
+</tr>
+</tbody>
+</table>
+<p>Example request:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> \
+  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">my_archivematica_instance</span><span class="o">.</span><span class="n">archivematica</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">transfer</span><span class="o">/</span><span class="n">approve</span><span class="o">/</span> \
+  <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Authorization: ApiKey [_your_username_]:[_your_ApiKey_]&#39;</span> \
+    <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Content-Type: application/x-www-form-urlencoded&#39;</span> \
+  <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Host: my_archivematica_instance.archivematica.org&#39;</span> \
+   <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;directory=mc-api-test-2&amp;type=standard&amp;rows_id%5B%5D=&#39;</span>
+</pre></div>
+</div>
+<p>Request body parameters:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">type</span></code></td>
+<td>Type of the transfer (e.g. standard, unzipped bag,
+zipped bag, dspace) to approve.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">directory</span></code></td>
+<td>Directory the transfer is in currently.</td>
+</tr>
+</tbody>
+</table>
+<p>Example response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Approval successful.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;a8791a46-ac73-4c7d-8c60-0673524226e3&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Response definitions:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Response item</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">message</span></code></td>
+<td>“Approval successful.”</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">uuid</span></code></td>
+<td>UUID of the approved transfer</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="status">
+<h4>Status<a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="45%" />
+<col width="45%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">GET</span></code></td>
+<td><strong>/api/transfer/status/&lt;transfer
+UUID&gt;/</strong></td>
+<td><em>Returns the status of a
+transfer</em></td>
+</tr>
+</tbody>
+</table>
+<p>Example request:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> \
+  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">my_archivematica_instance</span><span class="o">.</span><span class="n">archivematica</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">transfer</span><span class="o">/</span>
+  <span class="n">status</span><span class="o">/</span><span class="mi">89</span><span class="n">fd478d</span><span class="o">-</span><span class="n">c896</span><span class="o">-</span><span class="mi">461</span><span class="n">a</span><span class="o">-</span><span class="n">baec</span><span class="o">-</span><span class="mi">5</span><span class="n">d1faf661020</span><span class="o">/</span> \
+  <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Authorization: ApiKey [_your_username_]:[_your_ApiKey_]&#39;</span> \
+  <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Host: my_archivematica_instance.archivematica.org&#39;</span>
+  
+</pre></div>
+</div>
+<p>Example response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;COMPLETE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;ab&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;microservice&quot;</span><span class="p">:</span> <span class="s2">&quot;Check transfer directory for objects&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;directory&quot;</span><span class="p">:</span> <span class="s2">&quot;ab-89fd478d-c896-461a-baec-5d1faf661020&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/var/archivematica/sharedDirectory/watchedDirectories/SIPCreation/</span>
+    <span class="n">completedTransfers</span><span class="o">/</span><span class="n">ab</span><span class="o">-</span><span class="mi">89</span><span class="n">fd478d</span><span class="o">-</span><span class="n">c896</span><span class="o">-</span><span class="mi">461</span><span class="n">a</span><span class="o">-</span><span class="n">baec</span><span class="o">-</span><span class="mi">5</span><span class="n">d1faf661020</span><span class="o">/</span><span class="s2">&quot;,</span>
+    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Fetched status for 89fd478d-c896-461a-baec-5d1faf661020</span>
+    <span class="n">successfully</span><span class="o">.</span><span class="s2">&quot;,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;transfer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;89fd478d-c896-461a-baec-5d1faf661020&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Response definitions:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="42%" />
+<col width="33%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Response item</strong></td>
+<td><strong>Description</strong></td>
+<td><strong>Data type</strong></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">status</span></code></td>
+<td>One of FAILED, REJECTED,
+USER_INPUT, COMPLETE or
+PROCESSING</td>
+<td>string</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">name</span></code></td>
+<td>Name of the transfer,
+e.g. “imgs”</td>
+<td>string</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">sip_uuid</span></code></td>
+<td>If status is COMPLETE,
+this field will exist
+with either the UUID
+of the SIP or ‘BACKLOG’</td>
+<td>string</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">microservice</span></code></td>
+<td>Name of the current
+microservice</td>
+<td>string</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">directory</span></code></td>
+<td>Name of the directory,
+e.g. “imgs-52dd0c01-e803-
+423a-be5f-b592b5d5d61c”</td>
+<td>string</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">path</span></code></td>
+<td>Full path to the transfer,
+e.g. “/var/archivematica/
+sharedDirectory/watched
+Directories/SIPCreation/
+completedTransfers/imgs-
+52dd0c01-e803-423a-
+be5f-b592b5d5d61c/”</td>
+<td>string</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">message</span></code></td>
+<td>“Fetched status from
+&lt;transfer UUID&gt;
+successfully.”</td>
+<td>string</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">type</span></code></td>
+<td>“transfer”</td>
+<td>string</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">uuid</span></code></td>
+<td>UUID of the transfer,
+e.g. “52dd0c01-e803-423a-
+be5f-b592b5d5d61c”</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For consumers of this endpoint, it is possible for Archivematica to return a status of COMPLETE without a sip_uuid. Consumers looking to use the UUID of the AIP that will be created following Ingest should therefore test for both a status of COMPLETE and the existence of sip_uuid that does not also equal BACKLOG to ensure that they retrieve it. This might mean an additional call to the status endpoint while this data becomes available.</p>
+</div>
+</div>
+<div class="section" id="hide">
+<h4>Hide<a class="headerlink" href="#hide" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="45%" />
+<col width="41%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">DELETE</span></code></td>
+<td><strong>/api/transfer/&lt;transfer UUID&gt;/
+delete/</strong></td>
+<td>Hide a transfer</td>
+</tr>
+</tbody>
+</table>
+<p>Example request:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">DELETE</span> \
+    <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">my_archivematica_instance</span><span class="o">.</span><span class="n">archivematica</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">transfer</span><span class="o">/</span><span class="n">status</span><span class="o">/</span>
+    <span class="mi">89</span><span class="n">fd478d</span><span class="o">-</span><span class="n">c896</span><span class="o">-</span><span class="mi">461</span><span class="n">a</span><span class="o">-</span><span class="n">baec</span><span class="o">-</span><span class="mi">5</span><span class="n">d1faf661020</span><span class="o">/</span> \
+    <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Authorization: ApiKey [_your_username_]:[_your_ApiKey_]&#39;</span> \
+    <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Host: my_archivematica_instance.archivematica.org&#39;</span>
+</pre></div>
+</div>
+<p>Example response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;removed&quot;</span><span class="p">:</span> <span class="n">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="completed">
+<h4>Completed<a class="headerlink" href="#completed" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="45%" />
+<col width="41%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">GET</span></code></td>
+<td><strong>/api/transfer/completed/</strong></td>
+<td>Return list of Transfers that
+are completed.</td>
+</tr>
+</tbody>
+</table>
+<p>Example request:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> \
+  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">amqa1x</span><span class="o">.</span><span class="n">qa</span><span class="o">.</span><span class="n">archivematica</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">transfer</span><span class="o">/</span><span class="n">completed</span><span class="o">/</span> \
+  <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Accept: */*&#39;</span> \
+  <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Authorization: ApiKey [_your_username_]:[_your_ApiKey_]&#39;</span> \
+  
+</pre></div>
+</div>
+<p>Example response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Fetched completed transfers successfully.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;02ce3b9a-0704-4408-b0c0-2eb74a9f6652&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;1557c65e-7e97-42a5-8e11-3d170d7ce435&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;6db73922-0cc8-422d-81a6-b0b9bc0ff5f6&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;72f7260e-a0aa-42cf-9e4c-fbb00c60d763&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;89fd478d-c896-461a-baec-5d1faf661020&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;8d961dac-8114-4c74-97e5-58264e34913f&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;a58a60b3-9936-4233-b449-ab3620f4cf05&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;b9af0b93-734d-41ca-a02d-024d17600d0b&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ce1c8af6-8395-46fb-a81d-6e08b50a58ee&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;d2088fc6-7506-4012-ba0e-4f19880a1bfb&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;e6efb7fb-eb27-4def-963e-31dfc2d55d61&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;f4e12ba4-d2e2-4a4a-973c-7babd1da0cc4&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Response definitions:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Response item</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">message</span></code></td>
+<td>“Fetched completed transfers successfully.”</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">results</span></code></td>
+<td>List of UUIDs of completed Transfers.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="start-reingest">
+<h4>Start reingest<a class="headerlink" href="#start-reingest" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="45%" />
+<col width="41%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">POST</span></code></td>
+<td><strong>/api/transfer/reingest</strong></td>
+<td>Start a full reingest.</td>
+</tr>
+</tbody>
+</table>
+<p>Request body parameters:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">name</span></code></td>
+<td>Name of the AIP. The AIP should also be found
+at <code class="docutils literal notranslate"><span class="pre">%sharedDirectory%/tmp/&lt;name&gt;</span></code>.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">uuid</span></code></td>
+<td>UUID of the AIP to reingest.</td>
+</tr>
+</tbody>
+</table>
+<p>Response definitions:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Response item</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">message</span></code></td>
+<td>“Approval successful.”</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">reingest_uuid</span></code></td>
+<td>UUID of the reingested transfer.</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section" id="ingest">
@@ -216,9 +614,15 @@ ingest. Can be provided as <code class="docutils literal notranslate"><span clas
   <ul>
 <li><a class="reference internal" href="#">Reference</a><ul>
 <li><a class="reference internal" href="#archivematica-api">Archivematica API</a></li>
-<li><a class="reference internal" href="#endpoints-for-archivematica-api">Endpoints for Archivematica API</a><ul>
+<li><a class="reference internal" href="#archivematica-api-resources-and-endpoints">Archivematica API resources and endpoints</a><ul>
 <li><a class="reference internal" href="#transfer">Transfer</a><ul>
-<li><a class="reference internal" href="#start-transfer">Start Transfer</a></li>
+<li><a class="reference internal" href="#start-transfer">Start transfer</a></li>
+<li><a class="reference internal" href="#list-unapproved-transfer-s">List unapproved transfer(s)</a></li>
+<li><a class="reference internal" href="#approve-transfer-s">Approve transfer(s)</a></li>
+<li><a class="reference internal" href="#status">Status</a></li>
+<li><a class="reference internal" href="#hide">Hide</a></li>
+<li><a class="reference internal" href="#completed">Completed</a></li>
+<li><a class="reference internal" href="#start-reingest">Start reingest</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#ingest">Ingest</a></li>
