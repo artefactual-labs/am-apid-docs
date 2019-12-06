@@ -4,7 +4,8 @@
 Reference
 ==========
 
-Quickly review all available resources for the Archivematica API and Storage Service API with this reference.
+Quickly review all available resources for the Archivematica API and Storage 
+Service API with this reference.
 
 Archivematica API
 ==================
@@ -18,7 +19,8 @@ The Archivematica API provides:
 Archivematica API resources and endpoints
 ==========================================
 
-Endpoints for the Archivematica API have been organized into the following resource categories:
+Endpoints for the Archivematica API have been organized into the following 
+resource categories:
 
     * :ref:`transfer-resource.rst`
     * :ref:`ingest-resource.rst`
@@ -32,7 +34,10 @@ Endpoints for the Archivematica API have been organized into the following resou
 Transfer
 ---------
 
-Transfer refers to the process of moving any set of digital objects into Archivematica and turning the materials into a Submission Information Package (SIP). The Transfer tab prepares your content for preservation in Archivematica.
+Transfer refers to the process of moving any set of digital objects 
+into Archivematica and turning the materials into a Submission Information 
+Package (SIP). The Transfer tab prepares your content for preservation in 
+Archivematica.
 
 Start transfer
 ^^^^^^^^^^^^^^
@@ -212,7 +217,12 @@ Response definitions:
 
 ..  note::
 
-    For consumers of this endpoint, it is possible for Archivematica to return a status of COMPLETE without a sip_uuid. Consumers looking to use the UUID of the AIP that will be created following Ingest should therefore test for both a status of COMPLETE and the existence of sip_uuid that does not also equal BACKLOG to ensure that they retrieve it. This might mean an additional call to the status endpoint while this data becomes available.
+    For consumers of this endpoint, it is possible for Archivematica to return a
+     status of COMPLETE without a sip_uuid. Consumers looking to use the UUID 
+     of the AIP that will be created following Ingest should therefore test 
+     for both a status of COMPLETE and the existence of sip_uuid that does not 
+     also equal BACKLOG to ensure that they retrieve it. This might mean an 
+     additional call to the status endpoint while this data becomes available.
 
 Hide
 ^^^^^
@@ -261,6 +271,16 @@ Response definitions:
 Start reingest
 ^^^^^^^^^^^^^^^
 
+..  note::
+
+    The Start reingest endpoint complements the :ref:`ss-reingest-aip.rst`
+    endpoint on the Storage Service's end. When a reingest has been initiated, 
+    Archivematica fetches the AIP from storage, extracts and runs fixity on it 
+    to verify its integrity. Then Archivematica will set up the environment 
+    as per the reingest type before the Storage Service endpoint calls the 
+    Archivematica Start reingest endpoint.
+
+
 ===========  =================================   ==============================
 ``POST``      **/api/transfer/reingest**         Start a full reingest.
 ===========  =================================   ==============================
@@ -293,40 +313,55 @@ Response definitions:
 Ingest
 -------
 
-Ingest refers to the process by which digital objects are packaged into SIPs and run through several microservices, including normalization, packaging into an AIP and generation of a DIP.
+Ingest refers to the process by which digital objects are packaged into SIPs and
+ run through several microservices, including normalization, packaging into an 
+ AIP and generation of a DIP.
 
 .. _admin-resource.rst:
 
 Administration
 --------------
 
-Administration enables you to configure various parts of the application and manage integrations and users.
+Administration enables you to configure various parts of the application and 
+manage integrations and users.
 
 .. _unit-resource.rst:
 
 Unit
 ----
 
-Unit refers to "a type of Package Description that is specialized to provide information about an Archival Information Unit for use by Access Aids." (OAIS, p.1-13, Section 1.7.2)
+Unit refers to "a type of Package Description that is specialized to provide 
+information about an Archival Information Unit for use by Access Aids." (OAIS, 
+p.1-13, Section 1.7.2)
 
 .. _other-resource.rst:
 
 Other
 ------
 
-Other is a generic resource category that includes path metadata associated with level of description, and it also includes name associated with any customized processing configuration.
+Other is a generic resource category that includes path metadata associated 
+with level of description, and it also includes name associated with any 
+customized processing configuration.
 
 .. _beta.rst:
 
 Beta
 -----
 
-Beta refers to functionality for which the API endpoints are still in-flux and that could potentially change.
+Beta refers to functionality for which the API endpoints are still in-flux and 
+that could potentially change.
 
 Storage Service API
 ====================
 
-The Storage Service API provides access to the following resources via endpoints:
+The Storage Service API enables access to storage areas to which the Storage 
+Service has access.
+
+Storage Service API resources and endpoints
+============================================
+
+Endpoints for the Storage Service API have been organized into the following 
+resource categories:
 
     * :ref:`ss-pipeline.rst`
     * :ref:`ss-space.rst`
@@ -338,25 +373,45 @@ The Storage Service API provides access to the following resources via endpoints
 Pipeline
 ---------
 
-A pipeline is a representation of an Archivematica installation that is assigned a unique universal identifier (UUID) when it is registered with the Storage Service. The UUID provides information about your server and all associated clients. 
+A pipeline is a representation of an Archivematica installation that is assigned
+ a unique universal identifier (UUID) when it is registered with the Storage 
+ Service. The UUID provides information about your server and all associated 
+ clients. 
 
 .. _ss-space.rst:
 
 Space
 -----
 
-A storage space contains all the information necessary to connect to the physical storage. It is where the files are stored. Protocol-specific information, like an NFS export path and hostname, or the username of a system accessible only via SSH, is stored here. All locations must be contained in a space.
+A storage space contains all the information necessary to connect to the 
+physical storage. It is where the files are stored. Protocol-specific 
+information, like an NFS export path and hostname, or the username of a system 
+accessible only via SSH, is stored here. All locations must be contained in 
+a space.
 
 .. _ss-location.rst:
 
 Location
 --------
 
-A location is a subdivision of a space. Each location is assigned a specific purpose, such as AIP storage, DIP storage, transfer source or transfer backlog, in order to provide an organized way to structure content within a space.
+A location is a subdivision of a space. Each location is assigned a specific 
+purpose, such as AIP storage, DIP storage, transfer source or transfer backlog, 
+in order to provide an organized way to structure content within a space.
 
 .. _ss-package.rst:
 
 Package
 -------
 
-A package is a bundle of one or more files transferred from an external service; for example, a package may be an AIP, a backlogged transfer, or a DIP. Each package is stored in a location.
+A package is a bundle of one or more files transferred from an external service;
+ for example, a package may be an AIP, a backlogged transfer, or a DIP. Each 
+ package is stored in a location.
+
+.. _ss-reingest-aip.rst:
+
+Reingest AIP
+^^^^^^^^^^^^
+
+Example request:
+
+.. literalinclude:: _code/am-ss_reingest_aip.curl

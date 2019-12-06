@@ -1,0 +1,7 @@
+curl -v -H "Authorization: ApiKey [_your_username_]:[_your_ApiKey_]" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  -d '{"pipeline":"<UUID_of_the_pipeline_on_which_to_reingest>","reingest_type
+  ":"FULL"}'
+  'http://my_archivematica_instance.archivematica.org:8000/api/v2/file/<UUID_of
+  _the_pipeline_on_which_to_reingest>/reingest/'
