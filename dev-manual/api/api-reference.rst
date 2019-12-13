@@ -94,9 +94,7 @@ Example response:
 Response definitions:
 
 ==================   =========================================  ===============
-
-**Response item**    **Description**                            
-
+                          
 ``message``          "Fetched unapproved transfers 
                      successfully."
 
@@ -145,9 +143,7 @@ Example response:
 Response definitions:
 
 ==================   ==========================================================
-
-**Response item**    **Description**                            
-
+                       
 ``message``          "Approval successful."
 
 ``uuid``             UUID of the approved transfer  
@@ -173,8 +169,6 @@ Example response:
 Response definitions:
 
 =================       ============================     ======================
-
-**Response item**       **Description**                  **Data type**
 
 ``status``              One of FAILED, REJECTED,         string
                         USER_INPUT, COMPLETE or
@@ -218,11 +212,11 @@ Response definitions:
 ..  note::
 
     For consumers of this endpoint, it is possible for Archivematica to return a
-     status of COMPLETE without a sip_uuid. Consumers looking to use the UUID 
-     of the AIP that will be created following Ingest should therefore test 
-     for both a status of COMPLETE and the existence of sip_uuid that does not 
-     also equal BACKLOG to ensure that they retrieve it. This might mean an 
-     additional call to the status endpoint while this data becomes available.
+    status of COMPLETE without a sip_uuid. Consumers looking to use the UUID 
+    of the AIP that will be created following Ingest should therefore test 
+    for both a status of COMPLETE and the existence of sip_uuid that does not 
+    also equal BACKLOG to ensure that they retrieve it. This might mean an 
+    additional call to the status endpoint while this data becomes available.
 
 Hide
 ^^^^^
@@ -259,9 +253,7 @@ Example response:
 Response definitions:
 
 ==================   ==========================================================
-
-**Response item**    **Description**                            
-
+                         
 ``message``          "Fetched completed transfers successfully."
 
 ``results``          List of UUIDs of completed Transfers. 
@@ -299,9 +291,7 @@ Request body parameters:
 Response definitions:
 
 ==================   ==========================================================
-
-**Response item**    **Description**                            
-
+                    
 ``message``          "Approval successful."
 
 ``reingest_uuid``    UUID of the reingested transfer.
@@ -314,8 +304,29 @@ Ingest
 -------
 
 Ingest refers to the process by which digital objects are packaged into SIPs and
- run through several microservices, including normalization, packaging into an 
- AIP and generation of a DIP.
+run through microservices that enable normalization, packaging into an 
+AIP, and generation of a DIP.
+
+Status
+^^^^^^^
+
+===========  =================================   ==============================
+``GET``      **/ingest/status/<unit_UUID>/**     Returns the status of the SIP. 
+===========  =================================   ==============================
+
+Response definitions:
+
+==================   ==========================================================
+                    
+``status``           One of FAILED, REJECTED, USER_INPUT, COMPLETE or PROCESSING.
+
+``name``             Name of the SIP, e.g. "imgs".
+
+``microservices``    Name of the current microservice.
+
+
+
+==================   ==========================================================
 
 .. _admin-resource.rst:
 
@@ -412,6 +423,31 @@ A package is a bundle of one or more files transferred from an external service;
 Reingest AIP
 ^^^^^^^^^^^^
 
+===========  =================================   ==============================
+``POST``     **/api/v2/file/<UUID>/reingest/**   Initiate an AIP reingest.
+===========  =================================   ==============================
+
 Example request:
 
 .. literalinclude:: _code/am-ss_reingest_aip.curl
+
+Request body parameters:
+
+======================  ========================================================
+
+``pipeline``            UUID of the pipeline on which to reingest AIP.
+               
+``reingest_type``       One of `METADATA_ONLY` (metadata-only reingest), 
+                        `OBJECTS` (partial reingest), `FULL` (full reingest).
+
+``processing_config``   Optional. Name of the processing configuration to use
+                        on full reingest.
+
+======================  ========================================================
+
+Example response:
+
+.. literalinclude:: _code/reingest_aip_response.curl
+
+
+
