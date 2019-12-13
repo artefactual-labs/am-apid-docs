@@ -234,6 +234,13 @@ Example response:
 
 .. literalinclude:: _code/hide_response.curl
 
+.. note:: 
+
+   Despite the URL, this currently returns both SIPs & transfers that 
+   are waiting for user input. In the future, a separate **/api/transfer/
+   waiting** should be added for transfers.
+
+
 Completed
 ^^^^^^^^^^
 
@@ -314,6 +321,14 @@ Status
 ``GET``      **/ingest/status/<unit_UUID>/**     Returns the status of the SIP. 
 ===========  =================================   ==============================
 
+Example request:
+
+.. literalinclude:: _code/status_request.curl
+
+Example response (JSON):
+
+.. literalinclude:: _code/status_response.curl
+
 Response definitions:
 
 ==================   ==========================================================
@@ -322,9 +337,70 @@ Response definitions:
 
 ``name``             Name of the SIP, e.g. "imgs".
 
-``microservices``    Name of the current microservice.
+``microservices``    Name of the current microservice
+
+``directory``        Name of the directory, e.g. "imgs-52dd0c01-e803-423a-be5f
+                     \ -b592b5d5d61c"
+
+``path``             Full path to the transfer, e.g. "/var/archivematica/shared
+                     Directory/currentlyProcessing/imgs-52dd0c01-e803-423a-be5f-
+                     / b592b5d5d61c/".     
+
+``message``          "Fetched status for <SIP UUID> successfully."
+
+``type``             "SIP"
+
+``uuid``             UUID of the SIP, e.g. "52dd0c01-e803-423a-be5f-b592b5d61c".
+
+==================   ==========================================================
+
+Hide
+^^^^^
+
+===========  =================================== ==============================
+``DELETE``   **/api/ingest/<SIP UUID>/delete/**  Hide a SIP. 
+===========  =================================== ==============================
+
+Example request:
+
+.. literalinclude:: _code/hide_request.curl
+
+Example response:
+
+.. literalinclude:: _code/hide_response.curl
 
 
+List SIPS Waiting for User Input
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+=========  ========================  ===========================================
+``GET``    **/api/ingest/waiting**   Returns a list of SIPs waiting for user 
+                                     input.
+=========  ========================  ===========================================
+
+Example request:
+
+.. literalinclude:: _code/sips-waiting_request.curl
+
+Example response (JSON):
+
+.. literalinclude:: _code/sips-waiting_response.curl
+
+Response definitions:
+
+==================   ==========================================================
+                    
+``message``          "Fetched units successfully."
+
+``results:``         List of dicts with keys:
+
+                     ``sip_directory``: Directory the SIP is in currently.
+
+                     ``sip_uuid``: UUID OF THE SIP.
+
+                     ``sip_name``: Name of the SIP.
+
+                     ``microservice``: Name of the current microservice.
 
 ==================   ==========================================================
 
