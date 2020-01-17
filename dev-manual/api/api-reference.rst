@@ -234,12 +234,6 @@ Example response:
 
 .. literalinclude:: _code/hide_response.curl
 
-.. note:: 
-
-   Despite the URL, this currently returns both SIPs & transfers that 
-   are waiting for user input. In the future, a separate **/api/transfer/
-   waiting** should be added for transfers.
-
 
 Completed
 ^^^^^^^^^^
@@ -404,6 +398,108 @@ Response definitions:
 
 ==================   ==========================================================
 
+.. note:: 
+
+   Despite the URL, this currently returns both SIPs & transfers that 
+   are waiting for user input. In the future, a separate **/api/transfer/
+   waiting** should be added for transfers.
+
+
+Completed
+^^^^^^^^^^
+
+===========  ========================== ========================================
+``GET``      **/api/ingest/completed/**  Return a list of completed SIPs.
+===========  ========================== ========================================
+
+Example request:
+
+.. literalinclude:: _code/completed_ingest_request.curl
+
+Example response (JSON):
+
+.. literalinclude:: _code/completed_ingest_response.curl
+
+Reingest
+^^^^^^^^^
+
+=========== ========================= ==========================================
+``POST``    **/api/ingest/reingest**  Start a partial or metadata-only reingest.
+=========== ========================= ==========================================
+
+
+Example request:
+
+.. literalinclude:: _code/am-ss_reingest_aip.curl
+
+
+Request body parameters:
+
+=============  ================================================================
+
+``name``       Name of the AIP. The AIP should also be found
+               at ``%sharedDirectory%/tmp/<name>``.
+
+``uuid``       UUID of the AIP to reingest.
+
+=============  ================================================================
+
+
+Example response (JSON):
+
+.. literalinclude:: _code/reingest_aip_response.curl
+
+
+Response definitions:
+
+==================   ==========================================================
+                    
+``message``          "Approval successful."
+
+``reingest_uuid``    UUID of the reingested transfer.
+
+==================   ==========================================================
+
+
+Copy metadata
+^^^^^^^^^^^^^^
+
+=========== ==================================== ==============================
+``POST``    **/api/ingest/copy_metadata_files/** Add metadata files to a SIP.
+=========== ==================================== ==============================
+
+.. TBD
+   Example request:
+   literalinclude:: _code/reingest_aip_request.curl
+
+Request body parameters:
+
+==================  ============================================================
+
+``sip_uuid``        UUID of the SIP to put files in.
+
+``source_paths[]``  List of files to be copied, base64 encoded, in the format 
+                    'source_location_uuid:full_path'
+
+==================  ============================================================
+
+
+.. TBD 
+   Example response (JSON):
+   literalinclude:: _code/reingest_aip_response.curl
+
+
+Response definitions:
+
+==================   ==========================================================
+                    
+``message``          "Approval successful."
+
+``reingest_uuid``    UUID of the reingested transfer.
+
+==================   ==========================================================
+
+
 .. _admin-resource.rst:
 
 Administration
@@ -412,7 +508,57 @@ Administration
 Administration enables you to configure various parts of the application and 
 manage integrations and users.
 
+
+Levels of description
+^^^^^^^^^^^^^^^^^^^^^^
+
+======= ===========================================  ===========================
+
+``GET`` **/api/administration/dips/atom /levels/**   Return a JSON-encoded set 
+                                                     of the configured levels 
+                                                     of description.
+      
+======= ===========================================  ===========================
+
+
+Example request:
+
+.. literalinclude:: _code/admin_levels_of_desc_req.curl
+
+Example response (JSON):
+
+The following response includes a list of AtoM Levels of description with key 
+'UUID' and value 'name of level of description'.
+
+.. literalinclude:: _code/admin_levels_of_desc_response.curl
+
+
+Fetch levels of description
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+======= =============================================== ========================
+
+``GET`` **/api/administration/dips/atom/fetch_levels/**  Fetch all levels of 
+                                                         description from an 
+                                                         AtoM database,
+                                                         replacing any previously 
+                                                         existing.
+      
+======= =============================================== ========================
+
+Example request:
+
+.. literalinclude:: _code/fetch_levels.curl
+
+Example response (JSON):
+
+The following response includes an updated list of AtoM Levels of description 
+with key 'UUID' and value 'name of level of description'.
+
+.. literalinclude:: _code/fetch_levels_response.curl
+
 .. _unit-resource.rst:
+
 
 Unit
 ----
@@ -420,6 +566,59 @@ Unit
 Unit refers to "a type of Package Description that is specialized to provide 
 information about an Archival Information Unit for use by Access Aids." (OAIS, 
 p.1-13, Section 1.7.2)
+
+List jobs
+^^^^^^^^^^
+
+=============  =================================== =============================
+``GET``         **/api/v2beta/jobs/<unit UUID>/**  Return a list of jobs for the
+                                                   passed unit (transfer or
+                                                   ingest).
+=============  =================================== =============================
+
+Request body parameters (optional):
+
+================     ===========================================================
+
+``microservice``     Name of the microservice the jobs belong to.
+
+``link_uuid``        UUID of the job chain link.
+
+``name``             Name of the job.
+
+================     ===========================================================
+
+
+Example request:
+
+.. literalinclude:: _code/list_transfer_unit_request.curl
+
+Example response (JSON body):
+
+.. literalinclude:: _code/list_transfer_unit_response.curl
+
+Response definitions (from list of dicts):
+
+==================   ==========================================================
+                    
+``uuid``             UUID of the job.
+
+``name``             Name of the job.
+
+``status``           One of USER_INPUT, PROCESSING, COMPLETE, FAILED or UNKNOWN.
+
+``microservice``     Microservice to which the job belongs.
+
+``link_uuid``        UUID of the job chain link.
+
+``tasks``            List of dicts with information about the microservice's
+                     tasks.
+
+``uuid``             UUID of the task.
+
+``exit_code``        Exit code of the task.
+
+==================   ==========================================================
 
 .. _other-resource.rst:
 
