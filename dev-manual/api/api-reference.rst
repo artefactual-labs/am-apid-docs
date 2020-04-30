@@ -43,7 +43,8 @@ Start transfer
 ^^^^^^^^^^^^^^
 
 ========  ==================================  =================================
-``POST``  **/api/transfer/start_transfer/**   *Initiates a transfer in Archivematica.*
+``POST``  **/api/transfer/start_transfer/**   *Initiates a transfer in Archive-
+                                              matica.*
 ========  ==================================  =================================
 
 Request body parameters:
@@ -61,7 +62,9 @@ Request body parameters:
 ``accession``      Accession number of new transfer.
 
 ``paths[]``        List of base64-encoded
-                   ``<location_uuid>:<relative_path>`` to be copied into the new transfer. Location UUIDs should be associated with this pipeline, and relative path should be relative to the location.
+                   ``<location_uuid>:<relative_path>`` to be copied into the new
+                   transfer. Location UUIDs should be associated with this pipe-
+                   line, and relative path should be relative to the location.
 
 ``row_ids[]``      ID of the associated TransferMetadataSet for disk image
                    ingest. Can be provided as ``[""]``.
@@ -79,9 +82,35 @@ Example response:
 List unapproved transfer(s)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-========  ==============================  ====================================
-``GET``   **/api/transfer/unapproved/**    *Returns a list of transfers awaiting approval*
-========  ==============================  ====================================
+========  ==============================  ======================================
+
+``GET``   **/api/transfer/unapproved/**    *Returns a list of transfers awaiting
+                                           approval*
+
+========  ==============================  ======================================
+
+Response definitions:
+
+==================   ================================   ========================
+                          
+``message``          "Fetched unapproved transfers 
+                     successfully."
+
+``results``          List of dicts with the following 
+                     keys:     
+                     
+                     ``type``                           Transfer type. 
+
+                                                        One of: standard,
+                                                        unzipped bag, zipped 
+                                                        bag, dspace.
+
+                     ``directory``                      Directory the transfer 
+                                                        is in currently.    
+
+                     ``uuid``                           UUID of the transfer.      
+
+==================   ================================   ========================
 
 Example request:
 
@@ -91,39 +120,12 @@ Example response:
 
 .. literalinclude:: _code/list_transfer_response.curl
 
-Response definitions:
-
-==================   =========================================  ===============
-                          
-``message``          "Fetched unapproved transfers 
-                     successfully."
-
-``results``          List of dicts with the following keys:     |   
-                     
-                     ``type``                                   Transfer
-                                                                type. 
-
-                                                                One of: standard,     unzipped bag, zipped bag, dspace.
-
-                     ``directory``                              Directory 
-                                                                the 
-                                                                transfer is in currently.    
-
-                     ``uuid``                                   UUID of the 
-                                                                transfer.      
-
-==================   =========================================  ===============
-
 Approve transfer(s)
 ^^^^^^^^^^^^^^^^^^^^
 
 ========  ==========================  =========================================
 ``POST``  **/api/transfer/approve/**  *Approve a transfer awaiting initiation.*
 ========  ==========================  =========================================
-
-Example request:
-
-.. literalinclude:: _code/approve_transfer.curl
 
 Request body parameters:
 
@@ -136,9 +138,9 @@ Request body parameters:
 
 =============  ================================================================
 
-Example response:
+Example request:
 
-.. literalinclude:: _code/approve_transfer_response.curl
+.. literalinclude:: _code/approve_transfer.curl
 
 Response definitions:
 
@@ -150,6 +152,10 @@ Response definitions:
 
 ==================   ==========================================================
 
+Example response:
+
+.. literalinclude:: _code/approve_transfer_response.curl
+
 Status
 ^^^^^^^
 
@@ -157,14 +163,6 @@ Status
 ``GET``   **/api/transfer/status/<transfer    *Returns the status of a
           UUID>/**                            transfer* 
 ========  =================================   =================================
-
-Example request:
-
-.. literalinclude:: _code/status_request.curl
-
-Example response:
-
-.. literalinclude:: _code/status_response.curl
 
 Response definitions:
 
@@ -218,6 +216,14 @@ Response definitions:
     also equal BACKLOG to ensure that they retrieve it. This might mean an 
     additional call to the status endpoint while this data becomes available.
 
+Example request:
+
+.. literalinclude:: _code/status_request.curl
+
+Example response:
+
+.. literalinclude:: _code/status_response.curl
+
 Hide
 ^^^^^
 
@@ -243,14 +249,6 @@ Completed
                                                  are completed.
 ===========  =================================   ==============================
 
-Example request:
-
-.. literalinclude:: _code/completed_request.curl
-
-Example response:
-
-.. literalinclude:: _code/completed_response.curl
-
 Response definitions:
 
 ==================   ==========================================================
@@ -260,6 +258,14 @@ Response definitions:
 ``results``          List of UUIDs of completed Transfers. 
 
 ==================   ==========================================================
+
+Example request:
+
+.. literalinclude:: _code/completed_request.curl
+
+Example response:
+
+.. literalinclude:: _code/completed_response.curl
 
 Start reingest
 ^^^^^^^^^^^^^^^
@@ -315,14 +321,6 @@ Status
 ``GET``      **/ingest/status/<unit_UUID>/**     Returns the status of the SIP. 
 ===========  =================================   ==============================
 
-Example request:
-
-.. literalinclude:: _code/status_request.curl
-
-Example response (JSON):
-
-.. literalinclude:: _code/status_response.curl
-
 Response definitions:
 
 ==================   ==========================================================
@@ -348,6 +346,14 @@ Response definitions:
 
 ==================   ==========================================================
 
+Example request:
+
+.. literalinclude:: _code/status_request.curl
+
+Example response (JSON):
+
+.. literalinclude:: _code/status_response.curl
+
 Hide
 ^^^^^
 
@@ -371,14 +377,6 @@ List SIPS Waiting for User Input
 ``GET``    **/api/ingest/waiting**   Returns a list of SIPs waiting for user 
                                      input.
 =========  ========================  ===========================================
-
-Example request:
-
-.. literalinclude:: _code/sips-waiting_request.curl
-
-Example response (JSON):
-
-.. literalinclude:: _code/sips-waiting_response.curl
 
 Response definitions:
 
@@ -404,6 +402,13 @@ Response definitions:
    are waiting for user input. In the future, a separate **/api/transfer/
    waiting** should be added for transfers.
 
+Example request:
+
+.. literalinclude:: _code/sips-waiting_request.curl
+
+Example response (JSON):
+
+.. literalinclude:: _code/sips-waiting_response.curl
 
 Completed
 ^^^^^^^^^^
@@ -427,12 +432,6 @@ Reingest
 ``POST``    **/api/ingest/reingest**  Start a partial or metadata-only reingest.
 =========== ========================= ==========================================
 
-
-Example request:
-
-.. literalinclude:: _code/am-ss_reingest_aip.curl
-
-
 Request body parameters:
 
 =============  ================================================================
@@ -444,12 +443,6 @@ Request body parameters:
 
 =============  ================================================================
 
-
-Example response (JSON):
-
-.. literalinclude:: _code/reingest_aip_response.curl
-
-
 Response definitions:
 
 ==================   ==========================================================
@@ -460,6 +453,13 @@ Response definitions:
 
 ==================   ==========================================================
 
+Example request:
+
+.. literalinclude:: _code/am-ss_reingest_aip.curl
+
+Example response (JSON):
+
+.. literalinclude:: _code/reingest_aip_response.curl
 
 Copy metadata
 ^^^^^^^^^^^^^^
@@ -470,7 +470,7 @@ Copy metadata
 
 .. TBD
    Example request:
-   literalinclude:: _code/reingest_aip_request.curl
+   literalinclude:: _code/filename
 
 Request body parameters:
 
@@ -486,7 +486,7 @@ Request body parameters:
 
 .. TBD 
    Example response (JSON):
-   literalinclude:: _code/reingest_aip_response.curl
+   literalinclude:: _code/filename
 
 
 Response definitions:
@@ -588,15 +588,6 @@ Request body parameters (optional):
 
 ================     ===========================================================
 
-
-Example request:
-
-.. literalinclude:: _code/list_transfer_unit_request.curl
-
-Example response (JSON body):
-
-.. literalinclude:: _code/list_transfer_unit_response.curl
-
 Response definitions (from list of dicts):
 
 ==================   ==========================================================
@@ -620,6 +611,51 @@ Response definitions (from list of dicts):
 
 ==================   ==========================================================
 
+Example request:
+
+.. literalinclude:: _code/list_transfer_unit_request.curl
+
+Example response (JSON body):
+
+.. literalinclude:: _code/list_transfer_unit_response.curl
+
+Task
+^^^^^
+
+=========  =================================== =================================
+``GET``    **/api/v2beta/task/<task UUID>/**   Return information about a task.
+=========  =================================== =================================
+
+Response definitions:
+
+================   =============================================================
+                    
+``uuid``           UUID of the task.
+
+``exit_code``      List of dicts with keys:
+
+``file_uuid``      Exit code of the task.
+
+``file_name``      UUID of the file used for the task.
+
+``time_created``   File used for the task.
+
+``time_started``   String (YYYY-MM-DD HH:MM:SS) representing when the task
+                   was created.
+
+``duration``       Task duration in seconds (integer). If the duration is less
+                   than a second, this will be a < 1 string.
+
+================   =============================================================
+
+Example request:
+
+.. literalinclude:: _code/task_request.curl
+
+Example response (JSON):
+
+.. literalinclude:: _code/task_response.curl
+
 .. _other-resource.rst:
 
 Other
@@ -629,13 +665,176 @@ Other is a generic resource category that includes path metadata associated
 with level of description, and it also includes name associated with any 
 customized processing configuration.
 
+Path metadata
+^^^^^^^^^^^^^^
+
+============= ============================= =================================
+``GET, POST`` **/api/filesystem/metadata/** Fetch (GET) or update (POST)
+                                            metadata for a path (currently 
+                                            only level of description).   
+============= ============================= =================================
+
+Request parameter: 
+
+.. tip:: The following parameter can be submitted as query string parameter 
+         with GET or as a JSON object with a key-value pair in the request body
+         with POST.
+
+================     ===========================================================
+
+``path``             Arranged path on which to get metadata.
+
+================     ===========================================================
+
+Response: the processing config file as a stream
+
+Content type: text/xml
+
+Example request:
+
+.. literalinclude:: _code/task_request.curl
+
+Example response (JSON):
+
+.. literalinclude:: _code/task_response.curl
+
 .. _beta.rst:
 
 Beta
 -----
 
-Beta refers to functionality for which the API endpoints are still in-flux and 
-that could potentially change.
+API endpoints that are still in-flux and could potentially change.
+
+Package
+^^^^^^^^
+
+============= ============================= =================================
+``POST``      **/api/v2beta/package**       Start a new transfer type.   
+============= ============================= =================================
+
+Request parameters (mandatory):
+
+================     ===========================================================
+
+``name``             Transfer name.
+
+``path``             Path relative, or absolute to a storage service transfer
+                     source.
+
+================     ===========================================================
+
+Request parameters (optional):
+
+=====================  =========================================================
+
+``type``               Transfer name.
+
+``processing_config``  Processing configuration, e.g. default, automated,
+                       default: default
+
+``accession``          Accession ID.
+
+``access_system_id``   Access system ID (see `Docs <https://bit.ly/3c4yWt6>`_).
+
+``metadata_set_id``    Used to link to metadata sets added via the user 
+                       interface. It's safe to ignore this for now since 
+                       metadata can't be associated to transfer via the API 
+                       at the moment.
+
+``auto_approve``       Boolean true or false to set the transfer to auto-approve, 
+                       default: true.                     
+
+=====================  =========================================================
+
+Response definitions:
+
+==================   ==========================================================
+                    
+``id``                Transfer UUID (Note: as the package endpoint allows the 
+                      caller to interact with Archivematica asynchronously it 
+                      does not guarantee a transfer has started. The caller must 
+                      use the UUID in the response to verify it has begun or any
+                      errors that were encountered initiating one.)
+
+==================   ==========================================================
+
+Examples:
+
+Only a subset of these options might be needed for most use-cases. A fundamental
+difference between the package endpoint and others from which a transfer can be
+initiated is that a storage service transfer location UUID isnt always required.
+In some cases that might still be ideal.
+
+*Starting a transfer using an absolute path*::
+
+   curl -v POST \
+       -H "Authorization: ApiKey test:test" \
+       -H "Content-Type: application/json" \
+       -d "{\
+           \"path\": \"$(echo -n '/home/archivematica/archivematica-sampledata
+           /SampleTransfers/DemoTransfer' | base64 -w 0)\", \
+           \"name\": \"demo_transfer_absolute\", \
+           \"processing_config\": \"automated\", \
+           \"type\": \"standard\" \
+           }" \
+      "http://<archivematica-uri>/api/v2beta/package"
+
+*Starting a transfer using an relative path with a transfer source UUID*::
+
+  curl -v POST \
+       -H "Authorization: ApiKey test:test" \
+       -H "Content-Type: application/json" \
+       -d "{\
+           \"path\": \"$(echo -n 'd1184f7f-d755-4c8d-831a-a3793b88f760:
+           /archivematica/archivematica-sampledata/SampleTransfers/DemoTransfer' 
+           | base64 -w 0)\", \
+           \"name\": \"demo_transfer_relative\", \
+           \"processing_config\": \"automated\", \
+           \"type\": \"standard\" \
+           }" \
+      "http://<archivematica-uri>/api/v2beta/package"
+
+Validate
+^^^^^^^^
+
+======================= ========================================================
+**/api/v2beta/package** Available in Archivematica 1.10+. This endpoint can be 
+                        used to validate CSVs against embedded sets of rules. 
+                        Currently works with Avalon Media System Manifest files.
+
+                        In the future, this endpoint can be extended to support 
+                        validation for metadata.csv or rights.csv, or other 
+                        institutionally-based rules.   
+======================= ========================================================
+
+Usage example: (assuming that avalon.csv exists)::
+
+  curl http://127.0.0.1:62080/api/v2beta/validate/avalon \
+  --data-binary "@avalon.csv" \
+  --header "Authorization: ApiKey test:test" \
+  --header "Content-Type: text/csv; charset=utf-8"
+
+Response examples
+
+200 OK::
+
+  {
+  "valid": true
+  }
+
+400 Bad Request (expect reason to include different validation errors)::
+
+  {
+  "valid": false,
+  "reason": "Administrative data must include reference name and author."
+  }
+
+ 404 Not Found::
+ 
+  {
+  "error": true,
+  "message": "Unknown validator. Accepted values: avalon"
+  } 
 
 Storage Service API
 ====================
