@@ -47,7 +47,7 @@ Start transfer
                                               matica.*
 ========  ==================================  =================================
 
-Request body parameters:
+Request parameters:
 
 .. tip:: The parameters in the following table can be submitted as a JSON
    object with key-value pairs in the request body.
@@ -127,7 +127,7 @@ Approve transfer(s)
 ``POST``  **/api/transfer/approve/**  *Approve a transfer awaiting initiation.*
 ========  ==========================  =========================================
 
-Request body parameters:
+Request parameters:
 
 =============  ================================================================
 
@@ -228,7 +228,7 @@ Hide
 ^^^^^
 
 ===========  =================================   ==============================
-``DELETE``   **/api/transfer/<transfer UUID>/    Hide a transfer
+``DELETE``   **/api/transfer/<transfer UUID>/    *Hides a transfer*
              delete/**                          
 ===========  =================================   ==============================
 
@@ -245,8 +245,8 @@ Completed
 ^^^^^^^^^^
 
 ===========  =================================   ==============================
-``GET``      **/api/transfer/completed/**        Return list of Transfers that
-                                                 are completed.
+``GET``      **/api/transfer/completed/**        *Returns list of Transfers that
+                                                 are completed.*
 ===========  =================================   ==============================
 
 Response definitions:
@@ -281,10 +281,10 @@ Start reingest
 
 
 ===========  =================================   ==============================
-``POST``      **/api/transfer/reingest**         Start a full reingest.
+``POST``      **/api/transfer/reingest**         *Starts a full reingest.*
 ===========  =================================   ==============================
 
-Request body parameters:
+Request parameters:
 
 =============  ================================================================
 
@@ -318,7 +318,7 @@ Status
 ^^^^^^^
 
 ===========  =================================   ==============================
-``GET``      **/ingest/status/<unit_UUID>/**     Returns the status of the SIP. 
+``GET``      **/ingest/status/<unit_UUID>/**     *Returns status of the SIP.* 
 ===========  =================================   ==============================
 
 Response definitions:
@@ -358,7 +358,7 @@ Hide
 ^^^^^
 
 ===========  =================================== ==============================
-``DELETE``   **/api/ingest/<SIP UUID>/delete/**  Hide a SIP. 
+``DELETE``   **/api/ingest/<SIP UUID>/delete/**  *Hides a SIP.* 
 ===========  =================================== ==============================
 
 Example request:
@@ -414,7 +414,7 @@ Completed
 ^^^^^^^^^^
 
 ===========  ========================== ========================================
-``GET``      **/api/ingest/completed/**  Return a list of completed SIPs.
+``GET``      **/api/ingest/completed/**  *Returns a list of completed SIPs.*
 ===========  ========================== ========================================
 
 Example request:
@@ -429,10 +429,10 @@ Reingest
 ^^^^^^^^^
 
 =========== ========================= ==========================================
-``POST``    **/api/ingest/reingest**  Start a partial or metadata-only reingest.
+``POST``    **/api/ingest/reingest**  *Start a partial or metadata-only reingest.*
 =========== ========================= ==========================================
 
-Request body parameters:
+Request parameters:
 
 =============  ================================================================
 
@@ -465,14 +465,14 @@ Copy metadata
 ^^^^^^^^^^^^^^
 
 =========== ==================================== ==============================
-``POST``    **/api/ingest/copy_metadata_files/** Add metadata files to a SIP.
+``POST``    **/api/ingest/copy_metadata_files/** *Adds metadata files to a SIP.*
 =========== ==================================== ==============================
 
 .. TBD
    Example request:
    literalinclude:: _code/filename
 
-Request body parameters:
+Request parameters:
 
 ==================  ============================================================
 
@@ -538,11 +538,11 @@ Fetch levels of description
 
 ======= =============================================== ========================
 
-``GET`` **/api/administration/dips/atom/fetch_levels/**  Fetch all levels of 
+``GET`` **/api/administration/dips/atom/fetch_levels/**  *Fetches all levels of 
                                                          description from an 
                                                          AtoM database,
                                                          replacing any previously 
-                                                         existing.
+                                                         existing.*
       
 ======= =============================================== ========================
 
@@ -571,12 +571,12 @@ List jobs
 ^^^^^^^^^^
 
 =============  =================================== =============================
-``GET``         **/api/v2beta/jobs/<unit UUID>/**  Return a list of jobs for the
+``GET``         **/api/v2beta/jobs/<unit UUID>/**  *Returns a list of jobs for the
                                                    passed unit (transfer or
-                                                   ingest).
+                                                   ingest).*
 =============  =================================== =============================
 
-Request body parameters (optional):
+Request parameters (optional):
 
 ================     ===========================================================
 
@@ -623,7 +623,7 @@ Task
 ^^^^^
 
 =========  =================================== =================================
-``GET``    **/api/v2beta/task/<task UUID>/**   Return information about a task.
+``GET``    **/api/v2beta/task/<task UUID>/**   *Returns information about a task.*
 =========  =================================== =================================
 
 Response definitions:
@@ -669,9 +669,9 @@ Path metadata
 ^^^^^^^^^^^^^^
 
 ============= ============================= =================================
-``GET, POST`` **/api/filesystem/metadata/** Fetch (GET) or update (POST)
+``GET, POST`` **/api/filesystem/metadata/** *Fetches (GET) or update (POST)
                                             metadata for a path (currently 
-                                            only level of description).   
+                                            only level of description).*   
 ============= ============================= =================================
 
 Request parameter: 
@@ -709,7 +709,7 @@ Package
 ^^^^^^^^
 
 ============= ============================= =================================
-``POST``      **/api/v2beta/package**       Start a new transfer type.   
+``POST``      **/api/v2beta/package**       *Starts a new transfer type.*   
 ============= ============================= =================================
 
 Request parameters (mandatory):
@@ -859,9 +859,305 @@ Pipeline
 ---------
 
 A pipeline is a representation of an Archivematica installation that is assigned
- a unique universal identifier (UUID) when it is registered with the Storage 
- Service. The UUID provides information about your server and all associated 
- clients. 
+a unique universal identifier (UUID) when it is registered with the Storage 
+Service. The UUID provides information about your server and all associated 
+clients. 
+
+..  note::
+
+  For each Storage Service API resource, you can display a detailed schema by 
+  adding "schema" to the get all URL like in the following example: ::
+
+    $ curl -X GET -H"Authorization: ApiKey 
+    test:95141fc645ed97a95893f1f865d24687f89a27ad" 'http://localhost:8000/api/v2
+    /location/schema/?format=json
+    {
+       "allowed_detail_http_methods": [
+           "get",
+           "post"
+       ],
+       "allowed_list_http_methods": [
+           "get"
+       ],
+       "default_format": "application/json",
+       "default_limit": 20,
+       "fields": {
+           "description": {
+               "blank": false,
+               "default": "No default provided.",
+               "help_text": "Unicode string data. Ex: \"Hello World\"",
+               "nullable": false,
+               "primary_key": false,
+               "readonly": true,
+               "type": "string",
+               "unique": false,
+               "verbose_name": "description"
+           },
+           "enabled": {
+               "blank": true,
+               "default": true,
+               "help_text": "True if space can be accessed.",
+               "nullable": false,
+               "primary_key": false,
+               "readonly": false,
+               "type": "boolean",
+               "unique": false,
+               "verbose_name": "Enabled"
+           },
+           "path": {
+               "blank": false,
+               "default": "No default provided.",
+               "help_text": "Unicode string data. Ex: \"Hello World\"",
+               "nullable": false,
+               "primary_key": false,
+               "readonly": true,
+               "type": "string",
+               "unique": false,
+               "verbose_name": "path"
+           },
+           "pipeline": {
+               "blank": false,
+               "default": "No default provided.",
+               "help_text": "Many related resources. Can be either a list of URIs
+               or list of individually nested resource data.",
+               "nullable": false,
+               "primary_key": false,
+               "readonly": false,
+               "related_schema": "/api/v2/pipeline/schema/",
+               "related_type": "to_many",
+               "type": "related",
+               "unique": false,
+               "verbose_name": "pipeline"
+           },
+           "purpose": {
+               "blank": false,
+               "default": "No default provided.",
+               "help_text": "Purpose of the space.  Eg. AIP storage, Transfer 
+               source",
+               "nullable": false,
+               "primary_key": false,
+               "readonly": false,
+               "type": "string",
+               "unique": false,
+               "verbose_name": "Purpose"
+           },
+           "quota": {
+               "blank": false,
+               "default": null,
+               "help_text": "Size, in bytes (optional)",
+               "nullable": true,
+               "primary_key": false,
+               "readonly": false,
+               "type": "string",
+               "unique": false,
+               "verbose_name": "Quota"
+           },
+           "relative_path": {
+               "blank": false,
+               "default": "",
+               "help_text": "Path to location, relative to the storage space's 
+               path.",
+               "nullable": false,
+               "primary_key": false,
+               "readonly": false,
+               "type": "string",
+               "unique": false,
+               "verbose_name": "Relative Path"
+           },
+           "resource_uri": {
+               "blank": false,
+               "default": "No default provided.",
+               "help_text": "Unicode string data. Ex: \"Hello World\"",
+               "nullable": false,
+               "primary_key": false,
+               "readonly": true,
+               "type": "string",
+               "unique": false,
+               "verbose_name": "resource uri"
+           },
+           "space": {
+               "blank": false,
+               "default": "No default provided.",
+               "help_text": "A single related resource. Can be either a URI or 
+               set of nested resource data.",
+               "nullable": false,
+               "primary_key": false,
+               "readonly": false,
+               "related_schema": "/api/v2/space/schema/",
+               "related_type": "to_one",
+               "type": "related",
+               "unique": false,
+               "verbose_name": "space"
+           },
+           "used": {
+               "blank": false,
+               "default": 0,
+               "help_text": "Amount used, in bytes.",
+               "nullable": false,
+               "primary_key": false,
+               "readonly": false,
+               "type": "string",
+               "unique": false,
+               "verbose_name": "Used"
+           },
+           "uuid": {
+               "blank": true,
+               "default": "",
+               "help_text": "Unique identifier",
+               "nullable": false,
+               "primary_key": false,
+               "readonly": false,
+               "type": "string",
+               "unique": true,
+               "verbose_name": "uuid"
+           }
+       },
+       "filtering": {
+           "pipeline": 2,
+           "purpose": 1,
+           "quota": 1,
+           "relative_path": 1,
+           "space": 2,
+           "used": 1,
+           "uuid": 1
+       }
+    }
+
+  This schema, among other things, describes the fields in the resource 
+  (including the schema URI of related resource fields) and the fields that allow 
+  filtering. Valid filtering values are: Django ORM filters (e.g. startswith, 
+  exact, lte, etc.) or 1 or 2. If a filtering field is set to 2 it can be filtered 
+  over the related resource fields. For example, the locations could be filtered
+  by their pipeline UUID setting it in a request parameter formatted with two 
+  underscore chars: /api/v2/location/?pipeline__uuid=<uuid>
+
+  For more info on how to interact with the API see:
+
+  `<http://django-tastypie.readthedocs.io/en/v0.13.1/interacting.html>`__
+
+Get all pipelines
+^^^^^^^^^^^^^^^^^
+
+============= ============================= =================================
+``GET``       **/api/v2/pipeline/**         Retrieve information about all 
+                                            pipelines in the system.  
+============= ============================= =================================
+
+Query string parameters:
+
+==================  ============================================================
+
+``description``     Description of the pipeline.
+
+``uuid``            UUID associated with the pipeline.
+
+==================  ============================================================
+
+Response definitions (JSON):
+
+Returns information about all the pipelines in the system. Can be filtered by 
+the description or uuid. Disabled pipelines are not returned.
+
+==================  ============================================================
+
+``meta``            Metadata on the response: number of hits, pagination 
+                    information.
+
+``objects``         List of pipelines. See :ref:`ss_pipeline_details` for format.
+
+==================  ============================================================
+
+Example: ::
+
+  $ curl -X GET -H"Authorization: ApiKey test:95141fc645ed97a95893f1f865d24687f89a27ad"
+   'http://localhost:8000/api/v2/pipeline/?description__startswith=Archivematica'
+    | python -m json.tool
+  {
+      "meta": {
+          "limit": 20,
+          "next": null,
+          "offset": 0,
+          "previous": null,
+          "total_count": 1
+      },
+      "objects": [
+          {
+              "description": "Archivematica on alouette",
+              "remote_name": "127.0.0.1",
+              "resource_uri": "/api/v2/pipeline/dd354557-9e6e-4918-9fe3-a65b00ecb1af/",
+              "uuid": "dd354557-9e6e-4918-9fe3-a65b00ecb1af"
+          }
+      ]
+  }
+
+Create new pipeline
+^^^^^^^^^^^^^^^^^^^
+
+============= ============================= =================================
+``POST``       **/api/v2/pipeline/**        *Creates a new pipeline.*  
+============= ============================= =================================
+
+Request parameters (in JSON body):
+
+============================   =================================================
+
+``uuid``                       UUID of the new pipeline.
+
+``description``                Pipeline description.
+
+``api_key``                    API key associated with user for authorization.
+
+``api_username``               Username of admin authorized to write to the
+                               storage location.
+
+``create_default_locations``   If True, will associated default Locations 
+                               with the newly created pipeline.
+
+``shared_path``                If default locations are created, create the 
+                               processing location at this path in the local 
+                               filesystem.
+
+``remote_name``                URI of the pipeline.
+                               
+                               Note: Before v0.11.0: If create_default_locations
+                               is set, SS will try to guess the value using the 
+                               REMOTE_ADDR header.
+
+                               In v0.11.0 or newer: If not provided, SS will try
+                               to guess the value using the REMOTE_ADDR header.
+
+============================   =================================================
+
+.. _ss_pipeline_details:
+
+Get pipeline details
+^^^^^^^^^^^^^^^^^^^^
+
+Space
+------
+
+
+Get all spaces
+^^^^^^^^^^^^^^^
+
+
+Get space details
+^^^^^^^^^^^^^^^^^
+
+
+Browse space path
+^^^^^^^^^^^^^^^^^
+
+
+Create space
+^^^^^^^^^^^^
+
+
+Lo
+
+
+
+
 
 .. _ss-space.rst:
 
@@ -905,7 +1201,7 @@ Example request:
 
 .. literalinclude:: _code/am-ss_reingest_aip.curl
 
-Request body parameters:
+Request parameters:
 
 ======================  ========================================================
 
