@@ -8,7 +8,7 @@ Currently, information about APIs is sprinkled throughout Archivematica's docume
 To provide users with a single, clear, access point in the documentation library to understand the capabilities of all APIs that we expose and support in our product(s).
 
 
-### Objectoves
+### Objectives
 
 * Improve the accessibility and retrieval of API information for Archivematica and the Storage Service.
 
