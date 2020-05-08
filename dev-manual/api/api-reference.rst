@@ -1133,31 +1133,32 @@ Request parameters (in JSON body):
 Get pipeline details
 ^^^^^^^^^^^^^^^^^^^^
 
-Space
-------
+============= ============================= =================================
+``GET``       **/api/v2/pipeline/<uuid>**   Retrieve information about all 
+                                            pipelines in the system.  
+============= ============================= =================================
 
+Response definitions (JSON):
 
-Get all spaces
-^^^^^^^^^^^^^^^
+==================  ============================================================
 
+``description``     General statement about the pipeline.
 
-Get space details
-^^^^^^^^^^^^^^^^^
+``remote_name``     IP or hostname of the pipeline for use in API calls.
 
+``resource_uri``    URI for this pipeline in the API.
 
-Browse space path
-^^^^^^^^^^^^^^^^^
+``uuid``            UUID of the pipeline.
 
+==================  ============================================================
 
-Create space
-^^^^^^^^^^^^
+Example request:
 
+.. literalinclude:: _code/ss_get_pipeline_details_request.curl
 
-Lo
+Example response (JSON body):
 
-
-
-
+.. literalinclude:: _code//ss_get_pipeline_details_response.curl
 
 .. _ss-space.rst:
 
@@ -1169,6 +1170,189 @@ physical storage. It is where the files are stored. Protocol-specific
 information, like an NFS export path and hostname, or the username of a system 
 accessible only via SSH, is stored here. All locations must be contained in 
 a space.
+
+
+Get all spaces
+^^^^^^^^^^^^^^^
+
+============= =================== ==============================================
+``GET``       **/api/v2/space/**  Retrieves information about all the spaces 
+                                  in the system. Can be filtered by several 
+                                  fields: access protocol, path, size, amount 
+                                  used, UUID and verified status. Disabled spaces
+                                  are not returned. 
+============= =================== ==============================================
+
+Request parameters:
+
+============================   =================================================
+
+``access_protocol``            Protocol that the space uses; must be searched 
+                               based on the database code.
+
+``path``                       Space's path.
+
+``size``                       Maximum size in bytes. Can use greater than 
+                               (size__gt=1024), less than (size__lt=1024), and 
+                               other Django field lookups.
+
+``used``                       Bytes stored in this space. Can use greater than 
+                               (size__gt=1024), less than (size__lt=1024), and 
+                               other Django field lookups.
+
+``uuid``                       UUID of the space.                               
+
+============================   =================================================
+
+Response definitions (JSON):
+
+==================  ============================================================
+
+``meta``            Metadata on the response: number of hits, pagination 
+                    information.
+
+``objects``         List of spaces.
+
+==================  ============================================================
+
+Example request:
+
+.. literalinclude:: _code/ss_get_all_spaces_request.curl
+
+Example response (JSON):
+
+.. literalinclude:: _code/ss_get_all_spaces_response.curl
+
+
+Get space details
+^^^^^^^^^^^^^^^^^
+
+============= ========================= ========================================
+
+``GET``       **/api/v2/space/<UUID>/** Returns space-specific details.
+
+============= ========================= ========================================
+
+Response definitions (JSON):
+
+===================   ==========================================================
+
+``access_protocol``    Database code for the access protocol.  
+
+``last verified``      Date of last verification; this is a stub feature.
+
+``path``               Space's path.
+
+``resource_uri``       URI to the resource in the API.
+
+``size``               Maximum size of the space in bytes.
+
+``used``               Bytes stored in this space.
+
+``uuid``               UUID of the space.
+
+``verified``           If the space is verified, this is a stub feature.
+
+===================   ==========================================================
+
+Example request:
+
+.. literalinclude:: _code/ss_get_space_details_request.curl
+
+Example response (JSON):
+
+.. literalinclude:: _code/ss_get_space_details_response.curl
+
+
+Browse space path
+^^^^^^^^^^^^^^^^^
+
+============= ================================   ===============================
+``GET``       **/api/v2/space/<UUID>/browse/**   Gets details about the space
+                                                 path and directory structure.  
+============= ================================   ===============================
+
+Request parameters:
+
+============================   =================================================
+
+``path``                       Path inside the Space to look.
+
+============================   =================================================
+
+Response definitions (JSON):
+
+===================   ==========================================================
+
+``entries``           List of entries at path, files or directories.  
+
+``directories``       List of directories in path. Subset of entries.
+
+===================   ==========================================================
+
+Example request:
+
+.. literalinclude:: _code/ss_browse_space_path_request.curl
+
+Example response (JSON):
+
+.. literalinclude:: _code/ss_browse_space_path_response.curl
+
+
+Create space
+^^^^^^^^^^^^
+
+..  note::
+
+    For background, see `Issue 36 
+    <https://github.com/archivematica/Issues/issues/36>`_
+
+============= ==========================  ======================================
+
+``GET``       **/api/v2/pipeline/space**  Creates a new space.
+
+============= ==========================  ======================================
+
+Request parameters:
+
+Parameters should contain fields for a new space: See the 
+`Storage Service <https://www.archivematica.org/en/docs/storage-service-0.11/administrators/#id2>`_
+documentation or `Space <https://wiki.archivematica.org/Storage_Service#Space>`_
+for fields relevant to each type of space. Basic fields for a local file system 
+space are listed below.
+
+===================   ==========================================================
+
+``access_protocol``   This defines the type of space.
+
+``path``              Absolute path to the space on the local filesystem.
+
+``size``              (Optional) Maximum size allowed for this space. Set to 0 
+                      or leave blank for unlimited.
+
+===================   ==========================================================
+
+Example (to create an S3 space):
+
+.. code::
+
+  $ curl \
+      -X POST \
+      -d @payload.json \
+      -H "Content-Type: application/json" \
+      -H "Authorization: ApiKey test:test" \
+          http://127.0.0.1:62081/api/v2/space/
+
+  Where payload.json contains
+  {
+      "access_protocol": "S3",
+      "path": "",
+      "staging_path": "/",
+      "endpoint_url": "http://127.0.0.1:12345",
+      "access_key_id": "_Cah4cae1_",
+      "secret_access_key": "_Thu6Ahqu_",
+      "region": "us-west-2"
+  }
 
 .. _ss-location.rst:
 
