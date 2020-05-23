@@ -871,6 +871,7 @@ clients.
     $ curl -X GET -H"Authorization: ApiKey 
     test:95141fc645ed97a95893f1f865d24687f89a27ad" 'http://localhost:8000/api/v2
     /location/schema/?format=json
+
     {
        "allowed_detail_http_methods": [
            "get",
@@ -1023,6 +1024,7 @@ clients.
        }
     }
 
+
   This schema, among other things, describes the fields in the resource 
   (including the schema URI of related resource fields) and the fields that allow 
   filtering. Valid filtering values are: Django ORM filters (e.g. startswith, 
@@ -1067,11 +1069,14 @@ the description or uuid. Disabled pipelines are not returned.
 
 ==================  ============================================================
 
-Example: ::
+Example request::
 
   $ curl -X GET -H"Authorization: ApiKey test:95141fc645ed97a95893f1f865d24687f89a27ad"
    'http://localhost:8000/api/v2/pipeline/?description__startswith=Archivematica'
     | python -m json.tool
+
+Example response::
+
   {
       "meta": {
           "limit": 20,
@@ -1127,6 +1132,27 @@ Request parameters (in JSON body):
                                to guess the value using the REMOTE_ADDR header.
 
 ============================   =================================================
+
+Example request::
+
+  $ curl -X POST \
+   -H"Authorization: ApiKey test:95141fc645ed97a95893f1f865d24687f89a27ad" \
+   -H"Content-Type: application/json" \
+   -d'{"uuid": "99354557-9e6e-4918-9fe3-a65b00ecb199", \
+       "description": "Test pipeline", "create_default_locations": true, \
+       "api_username": "demo", \
+       "api_key": "03ecb307f5b8012f4771d245d534830378a87259"}' \
+    'http://192.168.1.42:8000/api/v2/pipeline/'
+
+Example response::
+
+  {
+     "create_default_locations": true,
+     "description": "Test pipeline",
+     "remote_name": "192.168.1.42",
+     "resource_uri": "/api/v2/pipeline/99354557-9e6e-4918-9fe3-a65b00ecb199/",
+     "uuid": "99354557-9e6e-4918-9fe3-a65b00ecb199"
+  }
 
 .. _ss_pipeline_details:
 
@@ -1309,14 +1335,15 @@ Create space
 
 ============= ==========================  ======================================
 
-``GET``       **/api/v2/pipeline/space**  Creates a new space.
+``POST``      **/api/v2/pipeline/space**  Creates a new space.
 
 ============= ==========================  ======================================
 
 Request parameters:
 
 Parameters should contain fields for a new space: See the 
-`Storage Service <https://www.archivematica.org/en/docs/storage-service-0.11/administrators/#id2>`_
+`Storage Service \
+<https://www.archivematica.org/en/docs/storage-service-0.16/administrators/#>`_
 documentation or `Space <https://wiki.archivematica.org/Storage_Service#Space>`_
 for fields relevant to each type of space. Basic fields for a local file system 
 space are listed below.
@@ -1363,14 +1390,219 @@ A location is a subdivision of a space. Each location is assigned a specific
 purpose, such as AIP storage, DIP storage, transfer source or transfer backlog, 
 in order to provide an organized way to structure content within a space.
 
+Get all locations
+^^^^^^^^^^^^^^^^^
+
+============= ========================= ========================================
+
+``GET``       **/api/v2/location/**     Returns space-specific details.
+
+============= ========================= ========================================
+
+Example request::
+
+  $ curl -X GET -H"Authorization: ApiKey 
+  test:95141fc645ed97a95893f1f865d24687f89a27ad" 'http://localhost:8000/api/v2
+  /location/schema/?format=json'
+
+Example response::
+
+  {
+      "meta": {
+          "limit": 20,
+          "next": null,
+          "offset": 0,
+          "previous": null,
+          "total_count": 7
+      },
+      "objects": [
+          {
+              "description": "",
+              "enabled": true,
+              "path": "/home",
+              "pipeline": [
+                  "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/"
+              ],
+              "purpose": "TS",
+              "quota": null,
+              "relative_path": "home",
+              "resource_uri": "/api/v2/location/a48e2a56-bae7-4b63-824e-b886bbadd77d/",
+              "space": "/api/v2/space/218caeb7-fd59-4b7b-99b1-f5771a2dd34f/",
+              "used": "0",
+              "uuid": "a48e2a56-bae7-4b63-824e-b886bbadd77d"
+          },
+          {
+              "description": "Store AIP in standard Archivematica Directory",
+              "enabled": true,
+              "path": "/var/archivematica/sharedDirectory/www/AIPsStore",
+              "pipeline": [
+                  "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/"
+              ],
+              "purpose": "AS",
+              "quota": null,
+              "relative_path": "var/archivematica/sharedDirectory/www/AIPsStore",
+              "resource_uri": "/api/v2/location/6286affb-6a2b-4ac7-b81e-192d84ede4c6/",
+              "space": "/api/v2/space/218caeb7-fd59-4b7b-99b1-f5771a2dd34f/",
+              "used": "179586607",
+              "uuid": "6286affb-6a2b-4ac7-b81e-192d84ede4c6"
+          },
+          {
+              "description": "Store DIP in standard Archivematica Directory",
+              "enabled": true,
+              "path": "/var/archivematica/sharedDirectory/www/DIPsStore",
+              "pipeline": [
+                  "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/"
+              ],
+              "purpose": "DS",
+              "quota": null,
+              "relative_path": "var/archivematica/sharedDirectory/www/DIPsStore",
+              "resource_uri": "/api/v2/location/8b70e21b-57a3-46f1-baee-c8c48fb6383c/",
+              "space": "/api/v2/space/218caeb7-fd59-4b7b-99b1-f5771a2dd34f/",
+              "used": "6773558",
+              "uuid": "8b70e21b-57a3-46f1-baee-c8c48fb6383c"
+          },
+          {
+              "description": "Default transfer backlog",
+              "enabled": true,
+              "path": "/var/archivematica/sharedDirectory/www/AIPsStore/transferBacklog",
+              "pipeline": [
+                  "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/"
+              ],
+              "purpose": "BL",
+              "quota": null,
+              "relative_path": "var/archivematica/sharedDirectory/www/AIPsStore/\
+              transferBacklog",
+              "resource_uri": "/api/v2/location/0da78c11-4ea7-4c52-8114-d39980e5\
+              ad2b/",
+              "space": "/api/v2/space/218caeb7-fd59-4b7b-99b1-f5771a2dd34f/",
+              "used": "189008",
+              "uuid": "0da78c11-4ea7-4c52-8114-d39980e5ad2b"
+          },
+          {
+              "description": "For storage service internal usage.",
+              "enabled": true,
+              "path": "/var/archivematica/storage_service",
+              "pipeline": [],
+              "purpose": "SS",
+              "quota": null,
+              "relative_path": "var/archivematica/storage_service",
+              "resource_uri": "/api/v2/location/5bf813d0-5663-4025-aac3-956ed1403790/",
+              "space": "/api/v2/space/218caeb7-fd59-4b7b-99b1-f5771a2dd34f/",
+              "used": "0",
+              "uuid": "5bf813d0-5663-4025-aac3-956ed1403790"
+          },
+          {
+              "description": "Default AIP recovery",
+              "enabled": true,
+              "path": "/var/archivematica/storage_service/recover",
+              "pipeline": [
+                  "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/"
+              ],
+              "purpose": "AR",
+              "quota": null,
+              "relative_path": "var/archivematica/storage_service/recover",
+              "resource_uri": "/api/v2/location/e26a003e-361c-45ad-b82e-185faabc\
+              7a2d/",
+              "space": "/api/v2/space/218caeb7-fd59-4b7b-99b1-f5771a2dd34f/",
+              "used": "0",
+              "uuid": "e26a003e-361c-45ad-b82e-185faabc7a2d"
+          },
+          {
+              "description": null,
+              "enabled": true,
+              "path": "/var/archivematica/sharedDirectory",
+              "pipeline": [
+                  "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/"
+              ],
+              "purpose": "CP",
+              "quota": null,
+              "relative_path": "var/archivematica/sharedDirectory/",
+              "resource_uri": "/api/v2/location/6f99d6c7-65ff-4966-993d-92a40df4\
+              a072/",
+              "space": "/api/v2/space/218caeb7-fd59-4b7b-99b1-f5771a2dd34f/",
+              "used": "0",
+              "uuid": "6f99d6c7-65ff-4966-993d-92a40df4a072"
+          }
+      ]
+  }
+
+
+Create new location
+^^^^^^^^^^^^^^^^^^^
+
+============= =====================  ===========================================
+
+``POST``      **/api/v2/location/**  Added in v0.12 - see issue 
+                                     `367 <https://github.com/artefactual/archivematica-storage-service/issues/367>`_ 
+                                     and issue `37 <https://github.com/archivematica/Issues/issues/37>`_.
+
+                                     This endpoint creates a location in the 
+                                     storage service, but it doesn't actually 
+                                     create the directory to which the location 
+                                     points.
+
+============= =====================  ===========================================
+
+Request parameters:
+
+===================   ==========================================================
+
+``description``       Information about the space.
+
+``pipeline``          URI of the pipeline.
+
+``space``             URI of the space.
+
+``default``           If 'true' this location will be the default for it's 
+                      purpose.
+
+``purpose``           Accepts the following possible values:
+
+                      AR (AIP_RECOVERY)
+
+                      AS (AIP_STORAGE)
+
+                      CP (CURRENTLY_PROCESSING)
+
+                      DS (DIP_STORAGE)
+
+                      SD (SWORD_DEPOSIT)
+
+                      SS (STORAGE_SERVICE_INTERNAL)
+
+                      BL (BACKLOG)
+
+                      TS (TRANSFER_SOURCE)
+
+                      RP (REPLICATOR)
+
+``relative_path``     Relative to the space's path.                      
+
+===================   ==========================================================
+
+
+Example::
+
+  curl -s -d '{
+      "pipeline": ["/api/v2/pipeline/90707555-244f-47af-8271-66496a6a965b/"],
+      "purpose": "TS",
+      "relative_path": "foo/bar",
+      "description": "foobar",
+      "space": "/api/v2/space/141593ff-2a27-44a1-9de1-917573fa0f4a/"
+  }' \
+      -X POST \
+      -H "Authorization: ApiKey test:test" \
+      -H "Content-Type: application/json" \
+          "http://127.0.0.1:62081/api/v2/location/"
+
 .. _ss-package.rst:
 
 Package
 -------
 
 A package is a bundle of one or more files transferred from an external service;
- for example, a package may be an AIP, a backlogged transfer, or a DIP. Each 
- package is stored in a location.
+for example, a package may be an AIP, a backlogged transfer, or a DIP. Each 
+package is stored in a location.
 
 .. _ss-reingest-aip.rst:
 
@@ -1402,6 +1634,5 @@ Request parameters:
 Example response:
 
 .. literalinclude:: _code/reingest_aip_response.curl
-
 
 
