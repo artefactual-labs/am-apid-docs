@@ -47,7 +47,7 @@ Start transfer
                                               matica.*
 ========  ==================================  =================================
 
-Request parameters:
+Request body parameters:
 
 .. tip:: The parameters in the following table can be submitted as a JSON
    object with key-value pairs in the request body.
@@ -124,10 +124,10 @@ Approve transfer(s)
 ^^^^^^^^^^^^^^^^^^^^
 
 ========  ==========================  =========================================
-``POST``  **/api/transfer/approve/**  *Approve a transfer awaiting initiation.*
+``POST``  **/api/transfer/approve/**  *Approves a transfer awaiting initiation.*
 ========  ==========================  =========================================
 
-Request parameters:
+Request body parameters:
 
 =============  ================================================================
 
@@ -161,7 +161,7 @@ Status
 
 ========  =================================   =================================
 ``GET``   **/api/transfer/status/<transfer    *Returns the status of a
-          UUID>/**                            transfer* 
+          UUID>/**                            transfer.* 
 ========  =================================   =================================
 
 Response definitions:
@@ -284,7 +284,7 @@ Start reingest
 ``POST``      **/api/transfer/reingest**         *Starts a full reingest.*
 ===========  =================================   ==============================
 
-Request parameters:
+Request body parameters:
 
 =============  ================================================================
 
@@ -374,8 +374,8 @@ List SIPS Waiting for User Input
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 =========  ========================  ===========================================
-``GET``    **/api/ingest/waiting**   Returns a list of SIPs waiting for user 
-                                     input.
+``GET``    **/api/ingest/waiting**   *Returns a list of SIPs waiting for user 
+                                     input.*
 =========  ========================  ===========================================
 
 Response definitions:
@@ -429,10 +429,10 @@ Reingest
 ^^^^^^^^^
 
 =========== ========================= ==========================================
-``POST``    **/api/ingest/reingest**  *Start a partial or metadata-only reingest.*
+``POST``    **/api/ingest/reingest**  *Starts a partial or metadata-only reingest.*
 =========== ========================= ==========================================
 
-Request parameters:
+Request body parameters:
 
 =============  ================================================================
 
@@ -472,7 +472,7 @@ Copy metadata
    Example request:
    literalinclude:: _code/filename
 
-Request parameters:
+Request body parameters:
 
 ==================  ============================================================
 
@@ -514,9 +514,9 @@ Levels of description
 
 ======= ===========================================  ===========================
 
-``GET`` **/api/administration/dips/atom /levels/**   Return a JSON-encoded set 
+``GET`` **/api/administration/dips/atom /levels/**   *Returns a JSON-encoded set 
                                                      of the configured levels 
-                                                     of description.
+                                                     of description.*
       
 ======= ===========================================  ===========================
 
@@ -576,7 +576,7 @@ List jobs
                                                    ingest).*
 =============  =================================== =============================
 
-Request parameters (optional):
+Query string parameters (optional):
 
 ================     ===========================================================
 
@@ -674,7 +674,8 @@ Path metadata
                                             only level of description).*   
 ============= ============================= =================================
 
-Request parameter: 
+
+Query string parameters or request body parameters: 
 
 .. tip:: The following parameter can be submitted as query string parameter 
          with GET or as a JSON object with a key-value pair in the request body
@@ -712,7 +713,7 @@ Package
 ``POST``      **/api/v2beta/package**       *Starts a new transfer type.*   
 ============= ============================= =================================
 
-Request parameters (mandatory):
+Request body parameters (mandatory):
 
 ================     ===========================================================
 
@@ -723,7 +724,7 @@ Request parameters (mandatory):
 
 ================     ===========================================================
 
-Request parameters (optional):
+Request body parameters (optional):
 
 =====================  =========================================================
 
@@ -798,16 +799,16 @@ Validate
 ^^^^^^^^
 
 ======================= ========================================================
-**/api/v2beta/package** Available in Archivematica 1.10+. This endpoint can be 
+**/api/v2beta/package** *Available in Archivematica 1.10+. This endpoint can be 
                         used to validate CSVs against embedded sets of rules. 
-                        Currently works with Avalon Media System Manifest files.
+                        Currently works with Avalon Media System Manifest files.*
 
-                        In the future, this endpoint can be extended to support 
+                        *In the future, this endpoint can be extended to support 
                         validation for metadata.csv or rights.csv, or other 
-                        institutionally-based rules.   
+                        institutionally-based rules.*   
 ======================= ========================================================
 
-Usage example: (assuming that avalon.csv exists)::
+Usage example (assuming that avalon.csv exists)::
 
   curl http://127.0.0.1:62080/api/v2beta/validate/avalon \
   --data-binary "@avalon.csv" \
@@ -1041,8 +1042,8 @@ Get all pipelines
 ^^^^^^^^^^^^^^^^^
 
 ============= ============================= =================================
-``GET``       **/api/v2/pipeline/**         Retrieve information about all 
-                                            pipelines in the system.  
+``GET``       **/api/v2/pipeline/**         *Retrieves information about all 
+                                            pipelines in the system.*  
 ============= ============================= =================================
 
 Query string parameters:
@@ -1102,7 +1103,7 @@ Create new pipeline
 ``POST``       **/api/v2/pipeline/**        *Creates a new pipeline.*  
 ============= ============================= =================================
 
-Request parameters (in JSON body):
+Request body parameters (accepts JSON strings as parameter values):
 
 ============================   =================================================
 
@@ -1160,8 +1161,8 @@ Get pipeline details
 ^^^^^^^^^^^^^^^^^^^^
 
 ============= ============================= =================================
-``GET``       **/api/v2/pipeline/<uuid>**   Retrieve information about all 
-                                            pipelines in the system.  
+``GET``       **/api/v2/pipeline/<uuid>**   *Retrieves information about all 
+                                            pipelines in the system.*  
 ============= ============================= =================================
 
 Response definitions (JSON):
@@ -1202,14 +1203,14 @@ Get all spaces
 ^^^^^^^^^^^^^^^
 
 ============= =================== ==============================================
-``GET``       **/api/v2/space/**  Retrieves information about all the spaces 
+``GET``       **/api/v2/space/**  *Retrieves information about all the spaces 
                                   in the system. Can be filtered by several 
                                   fields: access protocol, path, size, amount 
                                   used, UUID and verified status. Disabled spaces
-                                  are not returned. 
+                                  are not returned.* 
 ============= =================== ==============================================
 
-Request parameters:
+Query string parameters:
 
 ============================   =================================================
 
@@ -1255,7 +1256,7 @@ Get space details
 
 ============= ========================= ========================================
 
-``GET``       **/api/v2/space/<UUID>/** Returns space-specific details.
+``GET``       **/api/v2/space/<UUID>/** *Returns space-specific details.*
 
 ============= ========================= ========================================
 
@@ -1294,11 +1295,11 @@ Browse space path
 ^^^^^^^^^^^^^^^^^
 
 ============= ================================   ===============================
-``GET``       **/api/v2/space/<UUID>/browse/**   Gets details about the space
-                                                 path and directory structure.  
+``GET``       **/api/v2/space/<UUID>/browse/**   *Gets details about the space
+                                                 path and directory structure.*  
 ============= ================================   ===============================
 
-Request parameters:
+Query string parameters:
 
 ============================   =================================================
 
@@ -1335,11 +1336,11 @@ Create space
 
 ============= ==========================  ======================================
 
-``POST``      **/api/v2/pipeline/space**  Creates a new space.
+``POST``      **/api/v2/pipeline/space**  *Creates a new space.*
 
 ============= ==========================  ======================================
 
-Request parameters:
+Request body parameters:
 
 Parameters should contain fields for a new space: See the 
 `Storage Service \
@@ -1381,6 +1382,11 @@ Example (to create an S3 space):
       "region": "us-west-2"
   }
 
+..  note::
+
+    Endpoint returns all paths base64 encoded.
+
+
 .. _ss-location.rst:
 
 Location
@@ -1395,7 +1401,7 @@ Get all locations
 
 ============= ========================= ========================================
 
-``GET``       **/api/v2/location/**     Returns space-specific details.
+``GET``       **/api/v2/location/**     *Returns space-specific details.*
 
 ============= ========================= ========================================
 
@@ -1532,18 +1538,18 @@ Create new location
 
 ============= =====================  ===========================================
 
-``POST``      **/api/v2/location/**  Added in v0.12 - see issue 
+``POST``      **/api/v2/location/**  *Added in v0.12 - see issue 
                                      `367 <https://github.com/artefactual/archivematica-storage-service/issues/367>`_ 
-                                     and issue `37 <https://github.com/archivematica/Issues/issues/37>`_.
+                                     and issue `37 <https://github.com/archivematica/Issues/issues/37>`_.*
 
-                                     This endpoint creates a location in the 
+                                     *This endpoint creates a location in the 
                                      storage service, but it doesn't actually 
                                      create the directory to which the location 
-                                     points.
+                                     points.*
 
 ============= =====================  ===========================================
 
-Request parameters:
+Request body parameters:
 
 ===================   ==========================================================
 
@@ -1595,6 +1601,180 @@ Example::
       -H "Content-Type: application/json" \
           "http://127.0.0.1:62081/api/v2/location/"
 
+
+Get location details
+^^^^^^^^^^^^^^^^^^^^
+
+============= ============================  ====================================
+
+``GET``       **/api/v2/location/<UUID>/**  *Returns space-specific details.*
+
+============= ============================  ====================================
+
+
+Example request::
+
+  curl --location --request GET 'http://test.archivematica.net:8000/api/v2/location/e26a003e-361c-45ad-b82e-185faabc7a4d' \
+  --header 'Authorization: ApiKey test_user:ow7ioGh2reephua8uPaiWee3EiHeev6u'
+
+Example response::
+
+  {
+      "description": "Default AIP recovery",
+      "enabled": true,
+      "path": "/var/archivematica/storage_service/recover",
+      "pipeline": [
+          "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/"
+      ],
+      "purpose": "AR",
+      "quota": null,
+      "relative_path": "var/archivematica/storage_service/recover",
+      "resource_uri": "/api/v2/location/e26a003e-361c-45ad-b82e-185faabc7a4d/",
+      "space": "/api/v2/space/218caeb7-fd59-4b7b-99b1-f5771a2dd34f/",
+      "used": "0",
+      "uuid": "e26a003e-361c-45ad-b82e-185faabc7a2d"
+  }
+
+Move files to this location
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+===========  =================================   ===============================
+
+``POST``     **/api/v2/location/<UUID>/**        *Move files to specified pipe-
+                                                 line location.*
+
+===========  =================================   ===============================
+
+Request body parameters:
+
+======================  ========================================================
+
+``origin_location``     UUID of the pipeline on which to reingest AIP.
+               
+``pipeline``            URI of the pipeline. Both Locations must be associated 
+                        with this pipeline.
+
+``files``               List of dicts containing source and destination. The 
+                        `source` and `destination` are paths relative to their 
+                        Location of the files to be moved.                          
+
+======================  ========================================================
+
+..  note::
+
+    Intended for use with creating Transfers, SIPs, etc and other cases where 
+    files need to be moved but not tracked by the storage service.
+
+..     To include if available
+       Example request:
+       Example response:
+
+Browse location path 
+^^^^^^^^^^^^^^^^^^^^
+
+===========  ===================================   =============================
+
+``GET``      **/api/v2/location/<UUID>/browse/**   *Returns location paths that
+                                                   are base64 encoded.*
+
+===========  ===================================   =============================
+
+Query string parameters:
+
+======================  ========================================================
+
+``entries``             List of entries in `path`, files or directories.
+               
+``directories``         List of directories in `path`. Subset of `entries`.
+
+======================  ========================================================
+
+SWORD collection
+^^^^^^^^^^^^^^^^
+
+=============  ==============================  =================================
+
+``GET, POST``  **/api/v2/location/<UUID>/** \  *Part of the Archivematica storage
+               **sword/collection**            service REST API. The Storage Service
+                                               also talks to the Archivematica 
+                                               dashboard, however, to notify it that
+                                               a transfer created from a SWORD deposit
+                                               has been approved for processing.*
+                                                     
+                 
+
+=============  ==============================  =================================
+
+The Archivematica Sword API enables 3rd party applications to automate the 
+process of creating Transfers.
+
+  1. Create Transfer - set the name and other metadata about a Transfer
+  Populate Transfer - add/edit/update digital objects in a Transfer, 
+  and associated metadata.
+
+  2. Finalize Transfer - indicates that the Transfer is ready to start processing.
+  After content has been deposited, if users have access to the deposit directory 
+  they can also manually manipulate the deposit directory aside from any 
+  manipulation using the API.
+
+  3. Once a Transfer has been created, populated and finalized, Archivematica 
+  will begin processing that Transfer.
+
+Example request::
+
+  curl --location --request GET 'http://test.archivematica.net:8000/api/v2/location/6286affb-6a2b-4ac7-b81e-192d84ede7c6/browse/'
+
+Example response::
+
+  {
+      "directories": [
+          "MTk5OA==",
+          "MjdkOQ==",
+          "MmM0Yg==",
+          "MmNkMA==",
+          "OTE0NA==",
+          "YjdlZg==",
+          "ZTA1Mg==",
+          "dHJhbnNmZXJCYWNrbG9n"
+      ],
+      "entries": [
+          "MTk5OA==",
+          "MjdkOQ==",
+          "MmM0Yg==",
+          "MmNkMA==",
+          "OTE0NA==",
+          "YjdlZg==",
+          "ZTA1Mg==",
+          "dHJhbnNmZXJCYWNrbG9n"
+      ],
+      "properties": {
+          "MTk5OA==": {
+              "object count": 1
+          },
+          "MjdkOQ==": {
+              "object count": 1
+          },
+          "MmM0Yg==": {
+              "object count": 1
+          },
+          "MmNkMA==": {
+              "object count": 1
+          },
+          "OTE0NA==": {
+              "object count": 1
+          },
+          "YjdlZg==": {
+              "object count": 1
+          },
+          "ZTA1Mg==": {
+              "object count": 1
+          },
+          "dHJhbnNmZXJCYWNrbG9n": {
+              "object count": 34
+          }
+      }
+  }
+
 .. _ss-package.rst:
 
 Package
@@ -1604,20 +1784,479 @@ A package is a bundle of one or more files transferred from an external service;
 for example, a package may be an AIP, a backlogged transfer, or a DIP. Each 
 package is stored in a location.
 
+
+Get all packages
+^^^^^^^^^^^^^^^^
+
+===========  ==================   ==============================================
+
+``GET``      **/api/v2/file/**    *Retrieves information about all packages
+                                  for all available storage locations.*
+
+===========  ==================   ==============================================
+
+Example request::
+
+  curl --location --request GET 'http://test.archivematica.net:8000/api/v2/file/' \
+  --header 'Authorization: ApiKey test_user:ow7ioGh2reephua8uPaiWee3EiHeev6u' 
+
+Example response::
+
+  {
+      "meta": {
+          "limit": 20,
+          "next": null,
+          "offset": 0,
+          "previous": null,
+          "total_count": 11
+      },
+      "objects": [
+          {
+              "current_full_path": "/var/archivematica/sharedDirectory/www/AIPsStore/27d9/8723/a8f2/490b/9116/88c5/a555/9ca2/img-2-27d98723-a8f2-490b-9116-88c5a5559ca2.7z",
+              "current_location": "/api/v2/location/6286affb-6a2b-4ac7-b81e-192d84ede4c6/",
+              "current_path": "27d9/8723/a8f2/490b/9116/88c5/a555/9ca2/img-2-27d98723-a8f2-490b-9116-88c5a5559ca2.7z",
+              "encrypted": false,
+              "misc_attributes": {
+                  "reingest_pipeline": null
+              },
+              "origin_pipeline": "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/",
+              "package_type": "AIP",
+              "related_packages": [],
+              "replicas": [],
+              "replicated_package": null,
+              "resource_uri": "/api/v2/file/27d98723-a8f2-490b-9116-88c5a5559ca2/",
+              "size": 11444115,
+              "status": "UPLOADED",
+              "uuid": "27d98723-a8f2-490b-9116-88c5a5559ca2"
+          },
+          {
+              "current_full_path": "/var/archivematica/sharedDirectory/www/AIPsStore/b7ef/c3ad/81dc/4581/b630/f7ed/5ca8/01ce/images-b7efc3ad-81dc-4581-b630-f7ed5ca801ce.7z",
+              "current_location": "/api/v2/location/6286affb-6a2b-4ac7-b81e-192d84ede4c6/",
+              "current_path": "b7ef/c3ad/81dc/4581/b630/f7ed/5ca8/01ce/images-b7efc3ad-81dc-4581-b630-f7ed5ca801ce.7z",
+              "encrypted": false,
+              "misc_attributes": {
+                  "reingest_pipeline": null
+              },
+              "origin_pipeline": "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/",
+              "package_type": "AIP",
+              "related_packages": [],
+              "replicas": [],
+              "replicated_package": null,
+              "resource_uri": "/api/v2/file/b7efc3ad-81dc-4581-b630-f7ed5ca801ce/",
+              "size": 11447220,
+              "status": "UPLOADED",
+              "uuid": "b7efc3ad-81dc-4581-b630-f7ed5ca801ce"
+          },
+          {
+              "current_full_path": "/var/archivematica/sharedDirectory/www/AIPsStore/9144/66c1/d89d/4232/b583/7dcd/631f/d08a/test-914466c1-d89d-4232-b583-7dcd631fd08a.7z",
+              "current_location": "/api/v2/location/6286affb-6a2b-4ac7-b81e-192d84ede4c6/",
+              "current_path": "9144/66c1/d89d/4232/b583/7dcd/631f/d08a/test-914466c1-d89d-4232-b583-7dcd631fd08a.7z",
+              "encrypted": false,
+              "misc_attributes": {},
+              "origin_pipeline": "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/",
+              "package_type": "AIP",
+              "related_packages": [],
+              "replicas": [],
+              "replicated_package": null,
+              "resource_uri": "/api/v2/file/914466c1-d89d-4232-b583-7dcd631fd08a/",
+              "size": 43609598,
+              "status": "UPLOADED",
+              "uuid": "914466c1-d89d-4232-b583-7dcd631fd08a"
+          },
+          {
+              "current_full_path": "/var/archivematica/sharedDirectory/www/AIPsStore/1998/acb4/c6d8/439f/8e74/7285/ba15/012d/i2-1998acb4-c6d8-439f-8e74-7285ba15012d.7z",
+              "current_location": "/api/v2/location/6286affb-6a2b-4ac7-b81e-192d84ede4c6/",
+              "current_path": "1998/acb4/c6d8/439f/8e74/7285/ba15/012d/i2-1998acb4-c6d8-439f-8e74-7285ba15012d.7z",
+              "encrypted": false,
+              "misc_attributes": {
+                  "reingest_pipeline": null
+              },
+              "origin_pipeline": "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/",
+              "package_type": "AIP",
+              "related_packages": [],
+              "replicas": [],
+              "replicated_package": null,
+              "resource_uri": "/api/v2/file/1998acb4-c6d8-439f-8e74-7285ba15012d/",
+              "size": 11408327,
+              "status": "UPLOADED",
+              "uuid": "1998acb4-c6d8-439f-8e74-7285ba15012d"
+          },
+          {
+              "current_full_path": "/var/archivematica/sharedDirectory/www/AIPsStore/2cd0/575f/5e0b/4d2f/bd00/7e0b/254e/0802/mc-test-2cd0575f-5e0b-4d2f-bd00-7e0b254e0802.7z",
+              "current_location": "/api/v2/location/6286affb-6a2b-4ac7-b81e-192d84ede4c6/",
+              "current_path": "2cd0/575f/5e0b/4d2f/bd00/7e0b/254e/0802/mc-test-2cd0575f-5e0b-4d2f-bd00-7e0b254e0802.7z",
+              "encrypted": false,
+              "misc_attributes": {},
+              "origin_pipeline": "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/",
+              "package_type": "AIP",
+              "related_packages": [
+                  "/api/v2/file/855e14e9-2921-4b51-be77-0afdbdc16aeb/"
+              ],
+              "replicas": [],
+              "replicated_package": null,
+              "resource_uri": "/api/v2/file/2cd0575f-5e0b-4d2f-bd00-7e0b254e0802/",
+              "size": 11416388,
+              "status": "UPLOADED",
+              "uuid": "2cd0575f-5e0b-4d2f-bd00-7e0b254e0802"
+          },
+          {
+              "current_full_path": "/var/archivematica/sharedDirectory/www/DIPsStore/855e/14e9/2921/4b51/be77/0afd/bdc1/6aeb/mc-test-2cd0575f-5e0b-4d2f-bd00-7e0b254e0802",
+              "current_location": "/api/v2/location/8b70e21b-57a3-46f1-baee-c8c48fb6383c/",
+              "current_path": "855e/14e9/2921/4b51/be77/0afd/bdc1/6aeb/mc-test-2cd0575f-5e0b-4d2f-bd00-7e0b254e0802",
+              "encrypted": false,
+              "misc_attributes": {},
+              "origin_pipeline": "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/",
+              "package_type": "DIP",
+              "related_packages": [
+                  "/api/v2/file/2cd0575f-5e0b-4d2f-bd00-7e0b254e0802/"
+              ],
+              "replicas": [],
+              "replicated_package": null,
+              "resource_uri": "/api/v2/file/855e14e9-2921-4b51-be77-0afdbdc16aeb/",
+              "size": 3386601,
+              "status": "UPLOADED",
+              "uuid": "855e14e9-2921-4b51-be77-0afdbdc16aeb"
+          },
+          {
+              "current_full_path": "/var/archivematica/sharedDirectory/www/AIPsStore/transferBacklog/originals/test_bag-cdc18f4b-e859-4244-9c42-c575b69e92fe",
+              "current_location": "/api/v2/location/0da78c11-4ea7-4c52-8114-d39980e5ad2b/",
+              "current_path": "originals/test_bag-cdc18f4b-e859-4244-9c42-c575b69e92fe",
+              "encrypted": false,
+              "misc_attributes": {},
+              "origin_pipeline": "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/",
+              "package_type": "transfer",
+              "related_packages": [],
+              "replicas": [],
+              "replicated_package": null,
+              "resource_uri": "/api/v2/file/cdc18f4b-e859-4244-9c42-c575b69e92fe/",
+              "size": 189008,
+              "status": "UPLOADED",
+              "uuid": "cdc18f4b-e859-4244-9c42-c575b69e92fe"
+          },
+          {
+              "current_full_path": "/var/archivematica/sharedDirectory/www/AIPsStore/e052/5606/c710/4380/9c98/fdb4/3e77/c0ba/demo_images-e0525606-c710-4380-9c98-fdb43e77c0ba.7z",
+              "current_location": "/api/v2/location/6286affb-6a2b-4ac7-b81e-192d84ede4c6/",
+              "current_path": "e052/5606/c710/4380/9c98/fdb4/3e77/c0ba/demo_images-e0525606-c710-4380-9c98-fdb43e77c0ba.7z",
+              "encrypted": false,
+              "misc_attributes": {},
+              "origin_pipeline": "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/",
+              "package_type": "AIP",
+              "related_packages": [
+                  "/api/v2/file/578fec0b-4d6e-4725-8649-e03be6ab7425/"
+              ],
+              "replicas": [],
+              "replicated_package": null,
+              "resource_uri": "/api/v2/file/e0525606-c710-4380-9c98-fdb43e77c0ba/",
+              "size": 11414225,
+              "status": "UPLOADED",
+              "uuid": "e0525606-c710-4380-9c98-fdb43e77c0ba"
+          },
+          {
+              "current_full_path": "/var/archivematica/sharedDirectory/www/DIPsStore/578f/ec0b/4d6e/4725/8649/e03b/e6ab/7425/demo_images-e0525606-c710-4380-9c98-fdb43e77c0ba",
+              "current_location": "/api/v2/location/8b70e21b-57a3-46f1-baee-c8c48fb6383c/",
+              "current_path": "578f/ec0b/4d6e/4725/8649/e03b/e6ab/7425/demo_images-e0525606-c710-4380-9c98-fdb43e77c0ba",
+              "encrypted": false,
+              "misc_attributes": {},
+              "origin_pipeline": "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/",
+              "package_type": "DIP",
+              "related_packages": [
+                  "/api/v2/file/e0525606-c710-4380-9c98-fdb43e77c0ba/"
+              ],
+              "replicas": [],
+              "replicated_package": null,
+              "resource_uri": "/api/v2/file/578fec0b-4d6e-4725-8649-e03be6ab7425/",
+              "size": 3386957,
+              "status": "UPLOADED",
+              "uuid": "578fec0b-4d6e-4725-8649-e03be6ab7425"
+          },
+          {
+              "current_full_path": "/var/archivematica/sharedDirectory/www/AIPsStore/2c4b/a224/5889/4a07/a6ca/8323/5ad1/82e0/metadata-2c4ba224-5889-4a07-a6ca-83235ad182e0.7z",
+              "current_location": "/api/v2/location/6286affb-6a2b-4ac7-b81e-192d84ede4c6/",
+              "current_path": "2c4b/a224/5889/4a07/a6ca/8323/5ad1/82e0/metadata-2c4ba224-5889-4a07-a6ca-83235ad182e0.7z",
+              "encrypted": false,
+              "misc_attributes": {},
+              "origin_pipeline": "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/",
+              "package_type": "AIP",
+              "related_packages": [],
+              "replicas": [],
+              "replicated_package": null,
+              "resource_uri": "/api/v2/file/2c4ba224-5889-4a07-a6ca-83235ad182e0/",
+              "size": 78948258,
+              "status": "UPLOADED",
+              "uuid": "2c4ba224-5889-4a07-a6ca-83235ad182e0"
+          },
+          {
+              "current_full_path": "/var/archivematica/sharedDirectory/www/AIPsStore/9390/594f/84c2/457d/bd6a/618f/21f7/c954/cf-1-9390594f-84c2-457d-bd6a-618f21f7c954.7z",
+              "current_location": "/api/v2/location/6286affb-6a2b-4ac7-b81e-192d84ede4c6/",
+              "current_path": "9390/594f/84c2/457d/bd6a/618f/21f7/c954/cf-1-9390594f-84c2-457d-bd6a-618f21f7c954.7z",
+              "encrypted": false,
+              "misc_attributes": {},
+              "origin_pipeline": "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/",
+              "package_type": "AIP",
+              "related_packages": [],
+              "replicas": [],
+              "replicated_package": null,
+              "resource_uri": "/api/v2/file/9390594f-84c2-457d-bd6a-618f21f7c954/",
+              "size": 11417385,
+              "status": "UPLOADED",
+              "uuid": "9390594f-84c2-457d-bd6a-618f21f7c954"
+          }
+      ]
+  }
+
+Create new package
+^^^^^^^^^^^^^^^^^^
+
+===========  ==================  ===============================================
+``POST``     **/api/v2/file/**   *Creates a database entry tracking the package 
+                                 (AIP, transfer, etc). If the package is an AIP,
+                                 DIP or AIC and the current_location is an AIP 
+                                 or DIP storage location it also moves the files
+                                 from the source to destination location. If the
+                                 package is a Transfer and the current_location 
+                                 is transfer backlog, it is also moved.*
+
+                                 *This is handled through the modified* 
+                                 ``obj_create`` *function, which calls* 
+                                 ``Package.store_aip`` *or* ``Package.backlog_transfer``.
+===========  ==================  ===============================================
+
+Query string parameters:
+
+========================  ======================================================
+
+``uuid``                  UUID of the new package.
+               
+``origin_location``       URI of the Location where the package is currently.
+
+``origin_path``           Path to the package, relative to the origin_location.
+
+``current_location``      URI of the Location where the package should be stored.
+
+``current_path``          Path where the package should be stored, relative
+                          to the current_location.
+
+``package_type``          Type of package this is. One of: `AIP`, `AIC`, `DIP`, 
+                          `transfer`, `SIP`, `file`, `deposit`.
+
+``size``                  Size of the package.
+
+``origin_pipeline``       URI of the pipeline the package is from.
+
+``related_package_uuid``  UUID of a package that is related to this one.
+                          E.g. UUID of a DIP when storing an AIP               
+
+========================  ======================================================
+
+Get package details
+^^^^^^^^^^^^^^^^^^^^
+
+=========   =======================  ===========================================
+
+``GET``     **/api/v2/file/<UUID>**  *Retrieves information about a package.*
+
+=========   =======================  ===========================================
+
+Example request::
+
+  curl --location --request \
+  GET 'http://test.archivematica.net:8000/api/v2/file/9390594f-84c2-457d-bd6a-618f21f7c954/' \
+  --header 'Authorization: ApiKey test:ow7ioGh2reephua8uPaiWee4EiHeav7u'
+
+
+Example response::
+
+  {
+      "current_full_path": "/var/archivematica/sharedDirectory/www/AIPsStore/9390/594f/84c2/457d/bd6a/618f/21f7/c954/cf-1-9390594f-84c2-457d-bd6a-618f21f7c954.7z",
+      "current_location": "/api/v2/location/6286affb-6a2b-4ac7-b81e-192d84ede4c6/",
+      "current_path": "9390/594f/84c2/457d/bd6a/618f/21f7/c954/cf-1-9390594f-84c2-457d-bd6a-618f21f7c954.7z",
+      "encrypted": false,
+      "misc_attributes": {},
+      "origin_pipeline": "/api/v2/pipeline/a64e061a-5688-49b5-95c1-0b6885c40c04/",
+      "package_type": "AIP",
+      "related_packages": [],
+      "replicas": [],
+      "replicated_package": null,
+      "resource_uri": "/api/v2/file/9390594f-84c2-457d-bd6a-618f21f7c954/",
+      "size": 11417385,
+      "status": "UPLOADED",
+      "uuid": "9390594f-84c2-457d-bd6a-618f21f7c954"
+  }
+
+
+Update package contents
+^^^^^^^^^^^^^^^^^^^^^^^
+
+=========   =======================  ===========================================
+
+``PUT``     **/api/v2/file/<UUID>**  *Updates the contents of a package during
+                                     reingest. If the package is an AIP or AIC, 
+                                     currently stored in an AIP storage location,
+                                     and the 'reingest' parameter is set, it will
+                                     call* ``Package.finish_reingest`` *and merge 
+                                     the new AIP with the existing one.*
+
+                                     *This is implemented using a modified* 
+                                     ``obj_update`` *which calls* ``obj_update_hook.``
+
+=========   =======================  ===========================================
+
+Request body parameters:
+
+========================  ======================================================
+
+``reingest``              *Flag to mark that this is reingest. Reduces chance
+                          to accidentally modify an AIP.*
+
+``uuid``                  *UUID of the existing package.*
+
+``origin_location``       *URI of the Location where the package is currently.*
+
+``origin_path``           *Path to the package, relative to the origin_location.*   
+
+``current_location``      *URI of the Location where the package should be stored*
+
+``package_type``          *Type of package this is. One of:* ``AIP``, ``AIC``.   
+
+``size``                   *Size of the package.*
+
+``origin_pipeline``        *URI of the pipeline the package is from. This must 
+                           be the same pipeline reingest was started on (tracked
+                           through* ``Package.misc_attributes.reingest_pipeline)``.
+
+========================  ======================================================
+
+
+Update package metadata
+^^^^^^^^^^^^^^^^^^^^^^^
+
+=========   ========================   ==========================================
+
+``PATCH``   **/api/v2/file/<UUID>**    *Updates the metadata stored in the 
+                                       database for the package. Currently, this
+                                       is used to update the reingest status.*
+
+=========   ========================   ==========================================
+
+.. note::
+
+    Currently, this always sets ``Package.misc_attributes.reingest`` to None, 
+    regardless of what value was actually passed in.
+
+This is implemented using a ``modified obj_update`` which calls ``obj_update_hook``.
+``update_in_place`` also helps.
+
+
+
+Delete package request
+^^^^^^^^^^^^^^^^^^^^^^
+
+===========  ====================================  =============================
+
+``POST``     **/api/v2/file/<UUID>/delete_aip/**   *Requests package deletion.*
+
+===========  ====================================  =============================
+
+Request body parameters (mandatory):
+
+========================  ======================================================
+
+``event_reason``          *Rationale for deleting the AIP.*
+
+``pipeline``              *UUID of the pipeline the delete request is from.*
+
+``user_id``               *User ID requesting the deletion. This is the ID
+                          of the user on the pipeline, and must be an integer
+                          greater than 0.*
+
+``user_email``            *Email of the user requesting the deletion.*                          
+
+========================  ======================================================
+
+
+Example request::
+
+  curl --location --request POST 'http://test.archivematica.net:8000/api/v2/file/2cd0575f-5e0b-4d2f-bd00-7e0b254e0802/delete_aip/' \
+  --header 'Authorization: ApiKey test:ow7ioGh2reephua8uPaiWee4EiHeev9z' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+      "event_reason": "testing purposes",
+      "pipeline": "a64e061a-5688-49b5-95c1-0b6885c40c04",
+      "user_id": "1",
+      "user_email": "demo@example.com"
+  }'
+
+
+Example response::
+
+  {
+      "message": "Delete request created successfully.",
+      "id": 3
+  }
+
+
+Recover AIP request
+^^^^^^^^^^^^^^^^^^^
+
+===========  ====================================  =============================
+
+``POST``     **/api/v2/file/<UUID>/recover_aip/**  *Requests package deletion.*
+
+===========  ====================================  =============================
+
+Request body parameters (mandatory):
+
+========================  ======================================================
+
+``event_reason``          *Rationale for recovering the AIP.*
+
+``pipeline``              *URI of the pipeline the recovery request is from.*
+
+``user_id``               *User ID requesting the recovery. This is the ID of
+                          the user on the pipeline, and must be an integer
+                          greater than 0.*
+
+``user_email``            *Email of the user requesting the recovery.*
+
+========================  ======================================================                          
+
+
+Example request::
+
+  curl --location --request POST 'http://test.archivematica.net:8000/api/v2/file/2cd0575f-5e0b-4d2f-bd00-7e0b254e0802/recover_aip/' \
+  --header 'Authorization: ApiKey analyst:ow7ioGh2reephua8uPaiWee4EiHeev9z' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+      "event_reason": "testing purposes",
+      "pipeline": "a64e061a-5688-49b5-95c1-0b6885c40c04",
+      "user_id": "1",
+      "user_email": "demo@example.com"
+  }'
+
+
+Example response::
+
+  {
+      "message": "Recover request created successfully.",
+      "id": 4
+  }
+
+  
+
 .. _ss-reingest-aip.rst:
 
 Reingest AIP
 ^^^^^^^^^^^^
 
 ===========  =================================   ==============================
-``POST``     **/api/v2/file/<UUID>/reingest/**   Initiate an AIP reingest.
+``POST``     **/api/v2/file/<UUID>/reingest/**   *Initiates an AIP reingest.*
 ===========  =================================   ==============================
 
 Example request:
 
 .. literalinclude:: _code/am-ss_reingest_aip.curl
 
-Request parameters:
+Request body parameters:
 
 ======================  ========================================================
 
