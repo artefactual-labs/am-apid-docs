@@ -2140,7 +2140,7 @@ Update package metadata
 
 .. note::
 
-    Currently, this always sets ``Package.misc_attributes.reingest`` to None, 
+    Currently, this always sets ``Package.misc_attributes.reingest`` to ``None``, 
     regardless of what value was actually passed in.
 
 This is implemented using a ``modified obj_update`` which calls ``obj_update_hook``.
