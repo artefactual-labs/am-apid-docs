@@ -69,16 +69,16 @@ master_doc = 'contents'
 
 # General information about the project.
 project = u'Archivematica'
-copyright = u'2019, Artefactual Systems Inc.'
+copyright = u'2020, Artefactual Systems Inc.'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = '1.9'
+version = '1.12.x'
 # The full version, including alpha/beta/rc tags.
-release = '1.9.1'
+release = '1.11.x'
 
 rst_epilog = """
 .. |previous_version| replace:: 1.8
