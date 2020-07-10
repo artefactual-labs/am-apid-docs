@@ -2147,7 +2147,6 @@ This is implemented using a ``modified obj_update`` which calls ``obj_update_hoo
 ``update_in_place`` also helps.
 
 
-
 Delete package request
 ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -2177,7 +2176,7 @@ Request body parameters (mandatory):
 Example request::
 
   curl --location --request POST 'http://test.archivematica.net:8000/api/v2/file/2cd0575f-5e0b-4d2f-bd00-7e0b254e0802/delete_aip/' \
-  --header 'Authorization: ApiKey test:ow7ioGh2reephua8uPaiWee4EiHeev9z' \
+  --header 'Authorization: ApiKey test:ow7ioGh2reephua8uPaiWee4EiHeev2z' \
   --header 'Content-Type: application/json' \
   --data-raw '{
       "event_reason": "testing purposes",
@@ -2200,13 +2199,13 @@ Recover AIP request
 
 ===========  ====================================  =============================
 
-``POST``     **/api/v2/file/<UUID>/recover_aip/**  *Requests package deletion.*
+``POST``     **/api/v2/file/<UUID>/recover_aip/**  *Requests package recovery.*
 
 ===========  ====================================  =============================
 
 Request body parameters (mandatory):
 
-========================  ======================================================
+========================  =====================================================
 
 ``event_reason``          *Rationale for recovering the AIP.*
 
@@ -2218,13 +2217,12 @@ Request body parameters (mandatory):
 
 ``user_email``            *Email of the user requesting the recovery.*
 
-========================  ======================================================                          
-
+========================  =====================================================
 
 Example request::
 
   curl --location --request POST 'http://test.archivematica.net:8000/api/v2/file/2cd0575f-5e0b-4d2f-bd00-7e0b254e0802/recover_aip/' \
-  --header 'Authorization: ApiKey analyst:ow7ioGh2reephua8uPaiWee4EiHeev9z' \
+  --header 'Authorization: ApiKey test:ow7ioGh2reephua8uPaiWee4EiHeev2z' \
   --header 'Content-Type: application/json' \
   --data-raw '{
       "event_reason": "testing purposes",
@@ -2241,22 +2239,264 @@ Example response::
       "id": 4
   }
 
-  
+Download single file
+^^^^^^^^^^^^^^^^^^^^
+
+=============  =====================================  ==========================
+
+``GET, HEAD``  **/api/v2/file/<UUID>/extract_file/**  *Checks if a package is
+                                                      locally available and
+                                                      returns a single file
+                                                      from the package.*
+
+=============  =====================================  ==========================
+
+..  note::
+
+    (Future improvement) HEAD and GET should not perform the same functions. 
+    HEAD should be updated to not return the file, and to only check for existence.
+    Currently, the storage service has no way to check if a file exists except 
+    by downloading and extracting this AIP.
+
+Response:
+
+Returns a single file from the Package. If the package is compressed, it 
+downloads the whole AIP and extracts it.
+
+This responds to HEAD because AtoM uses HEAD to check for the existence of a file.
+
+If the package is in Arkivum, the package may not actually be available. This 
+endpoint checks if the package is locally available. If it is, it is returned as
+normal. If not, it returns ``202`` and emails the administrator about the 
+attempted access.
+
+
+Download package
+^^^^^^^^^^^^^^^^
+
+=============  =================================  ==============================
+
+``GET, HEAD``  **/api/v2/file/<UUID>/download/**  *Checks if a package is 
+                                                  available and returns the 
+                                                  entire package as a single 
+                                                  file.*
+
+
+
+
+               **/api/v2/file/<UUID>/download/
+               <chunk number>/
+               (for LOCKSS harvesting)** 
+
+=============  =================================  ==============================
+
+If the package is in Arkivum, the package may not actually be available. This 
+endpoint checks if the package is locally available. If it is, it is returned as
+normal. If not, it returns ``202`` and emails the administrator about the 
+attempted access.
+
+
+Get pointer file
+^^^^^^^^^^^^^^^^
+
+===========  =====================================  ============================
+
+``GET``      **/api/v2/file/<UUID>/pointer_file/**  *Checks if a pointer file is
+                                                    available and returns the
+                                                    contents of the pointer file.*
+
+===========  =====================================  ============================
+
+
+Check fixity
+^^^^^^^^^^^^
+
+=======  ======================================  ===============================
+
+``GET``  **//api/v2/file/<UUID>/check_fixity/**  *Performs a bag check and
+                                                 updates the Storage Service 
+                                                 database with the results 
+                                                 of that check.*
+
+=======  ======================================  ===============================
+
+
+Query string parameters:
+
+========================  ======================================================
+
+``force_local``           *If true, download and run fixity on the AIP locally, 
+                          instead of using the Space-provided fixity
+                          if available.*
+
+========================  ======================================================
+
+Response definitions (JSON):
+
+========================  ======================================================
+
+``success``               `True` if the verification succeeded, `False` if the 
+                          verification failed, `None` if the scan could not start.
+
+``message``               Human-readable string explaining the report; it
+                          will be empty for successful scans.
+
+``failures``              List of 0 or more errors.
+
+``timestamp``             ISO-formated string with the datetime of the last 
+                          fixity check. If the check was performed by an 
+                          external system, this will be provided by that system.
+                          If not provided,or on error, it will be None.
+
+========================  ======================================================
+
+AIP storage callback request
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+=======  =================================================  ====================
+
+``GET``  **/api/v2/file/<UUID>/send_callback/post_store/**  *Gets callbacks 
+                                                            configured to run 
+                                                            post-storage 
+                                                            for given AIP.*
+
+=======  =================================================  ====================
+
+..  tip::
+
+    In the Archivematica Storage Service versions 0.15 and above, this endpoint 
+    has been extended to support callbacks for AIP, AIC and DIP stored events.
+
+    * **Event:**  Post-store AIP, AIC, or DIP
+    * **URI:**    https://scope.com/api/v1/dip/<package_uuid>/stored
+    * **Method:** POST
+    * **Headers:**
+              * Authorization -> Token <token>
+              * Origin -> https://ss.com
+    * **Expected Status:**  202
+
+..  note::
+
+    When using this endpoint, AIPs must be locally stored for the API call
+    to work properly currently.
+
+
+Get file information for package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+=======   =================================    =================================
+
+``GET``   **/api/v2/file/<UUID>/contents/**    *Retrieves metadata on every file
+                                               within a package.*
+
+=======   =================================    =================================
+
+Response definitions (JSON):
+
+========================  ======================================================
+
+``success``               True.
+
+``package``               UUID of the package.
+
+``files``                 List of dictionaries with file information.
+                          Each dictionary has:
+
+                          * source_id - UUID of the file to index.
+                          * name - relative path of the file inside the package.
+                          * source_package - UUID of the SIP this file is from.
+                          * checksum - checksum of the file, or an empty string.
+                          * accessionid - Accession number, or an empty string.
+                          * origin - UUID of the Archivematica dashboard
+                            this is from.
+
+========================  ======================================================
+
+
+Update file information for package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+=======   =================================    ===================================
+
+``PUT``   **/api/v2/file/<UUID>/contents/**    *Adds a set of files to a package.*
+
+=======   =================================    ===================================
+
+Response definitions (JSON):
+
+========================  ======================================================
+
+``relative_path``         Relative path of the file inside the package.
+
+``fileuuid``              UUID of the file to index.
+
+``accessionid``           Accession number, or an empty string.
+
+``sipuuid``               UUID of the SIP this file is from.
+
+``origin``                UUID of the Archivematica dashboard this is from.
+
+========================  ======================================================
+
+
+Delete file information for package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+==========   =================================    ==============================
+
+``DELETE``   **/api/v2/file/<UUID>/contents/**    *Removes all file records
+                                                  associated with this package.*
+
+==========   =================================    ==============================
+
+
+Query file information on packages
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+=============   ==========================    ==================================
+
+``GET, POST``   **/api/v2/file/metadata/**    *Access or write file information
+                                              about the files.*
+
+=============   ==========================    ==================================
+
+
+Response definitions (JSON):
+
+========================  ======================================================
+
+``file``                  List of dictionaries with information about files that
+                          match the query:
+
+                          * accessionid - accession number, or an empty string.
+                          * file_extension - file extension.
+                          * filename - name of the file, sans path.
+                          * relative_path -  relative path of the file inside 
+                            the package.
+                          * fileuuid - UUID of the file to index.
+                          * sipuuid - UUID of the SIP this file is from.
+                          * origin - UUID of the Archivematica dashboard this is
+                            from.
+
+========================  ======================================================
+
 
 .. _ss-reingest-aip.rst:
 
 Reingest AIP
 ^^^^^^^^^^^^
 
-===========  =================================   ==============================
+===========  =================================   ===============================
+
 ``POST``     **/api/v2/file/<UUID>/reingest/**   *Initiates an AIP reingest.*
-===========  =================================   ==============================
+
+===========  =================================   ===============================
 
 Example request:
 
 .. literalinclude:: _code/am-ss_reingest_aip.curl
 
-Request body parameters:
+Request body parameters (JSON):
 
 ======================  ========================================================
 
@@ -2275,3 +2515,40 @@ Example response:
 .. literalinclude:: _code/reingest_aip_response.curl
 
 
+Move package
+^^^^^^^^^^^^
+
+..  note::
+
+    This endpoint was introduced in the Storage Service version 0.14.
+
+
+===========     =============================    ===============================
+
+``POST``        **/api/v2/file/<UUID>/move/**    *Relocates a package.*
+
+===========     =============================    ===============================
+
+
+Request body parameters (JSON):
+
+======================  ========================================================
+
+``location_uuid``       UUID of the location to send the package. The location 
+                        must have the same Purpose as the package's current 
+                        location (e.g. AIP Storage, DIP Storage).
+
+======================  ========================================================
+
+Example request::
+
+  $ curl -d 'location_uuid=7c5c48d4-50db-4018-b4b1-7ed29d1ef9d3 ' -H"Authorization: ApiKey test:4525fd5272275caeac04a28447698c51" 'http://mysite.archivematica.org:8000/api/v2/file/8b8aa1a2-79c9-490e-b630-28f90bb7e654/move/'
+
+
+SWORD endpoints
+^^^^^^^^^^^^^^^
+
+* URL:  ``/api/v2/file/<UUID>/sword/``
+* URL:  ``/api/v2/file/<UUID>/sword/media/``
+* URL:  ``/api/v2/file/<UUID>/sword/state/``
+  
