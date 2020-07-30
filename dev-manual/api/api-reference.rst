@@ -699,6 +699,47 @@ Example response (JSON):
 
 .. literalinclude:: _code/task_response.curl
 
+
+Processing configuration
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+=======  ======================================== ==============================
+
+``GET``  **/api/processing-configuration/<name>** *Returns processing 
+                                                  onfiguration with <name>*
+
+=======  ======================================== ==============================
+
+Example request::
+
+  curl --location --request GET 'http://test.machine.archivematica.net/api/processing-configuration/backlog' \
+  --header 'Authorization: ApiKey analyst:zzhah5chashie8OwEih6udie4choo4la'
+
+
+Example response::
+
+  <processingMCP>
+      <preconfiguredChoices>
+          <!-- Create SIP(s) -->
+          <preconfiguredChoice>
+              <appliesTo>bb194013-597c-4e4a-8493-b36d190f8717</appliesTo>
+              <goToChain>7065d256-2f47-4b7d-baec-2c4699626121</goToChain>
+          </preconfiguredChoice>
+          <!-- Assign UUIDs to directories -->
+          <preconfiguredChoice>
+              <appliesTo>bd899573-694e-4d33-8c9b-df0af802437d</appliesTo>
+              <goToChain>2dc3f487-e4b0-4e07-a4b3-6216ed24ca14</goToChain>
+          </preconfiguredChoice>
+          <!-- Send transfer to quarantine -->
+          <preconfiguredChoice>
+              <appliesTo>755b4177-c587-41a7-8c52-015277568302</appliesTo>
+              <goToChain>d4404ab1-dc7f-4e9e-b1f8-aa861e766b8e</goToChain>
+          </preconfiguredChoice>
+      </preconfiguredChoices>
+  </processingMCP>
+
+Content type: text/xml
+
 .. _beta.rst:
 
 Beta

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Developer’s manual &#8212; Archivematica 1.9.1 documentation</title>
+    <title>Developer’s manual &#8212; Archivematica 1.11.x documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../_static/documentation_options.js"></script>
@@ -30,7 +30,7 @@
         <li class="right" >
           <a href="../contents.html" title="Archivematica documentation contents"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../contents.html">Archivematica 1.9.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../contents.html">Archivematica 1.11.x documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -68,18 +68,83 @@
 <li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#start-reingest">Start reingest</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#ingest">Ingest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#administration">Administration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#unit">Unit</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#other">Other</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#beta">Beta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#ingest">Ingest</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#id1">Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#id2">Hide</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#list-sips-waiting-for-user-input">List SIPS Waiting for User Input</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#id3">Completed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#reingest">Reingest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#copy-metadata">Copy metadata</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api/api-reference.html#storage-service-api">Storage Service API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#pipeline">Pipeline</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#space">Space</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#location">Location</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#package">Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#administration">Administration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#levels-of-description">Levels of description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#fetch-levels-of-description">Fetch levels of description</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#unit">Unit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#list-jobs">List jobs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#task">Task</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#other">Other</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#path-metadata">Path metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#processing-configuration">Processing configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#beta">Beta</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#package">Package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#validate">Validate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/api-reference.html#storage-service-api">Storage Service API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/api-reference.html#storage-service-api-resources-and-endpoints">Storage Service API resources and endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#pipeline">Pipeline</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#get-all-pipelines">Get all pipelines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#create-new-pipeline">Create new pipeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#get-pipeline-details">Get pipeline details</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#space">Space</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#get-all-spaces">Get all spaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#get-space-details">Get space details</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#browse-space-path">Browse space path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#create-space">Create space</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#location">Location</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#get-all-locations">Get all locations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#create-new-location">Create new location</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#get-location-details">Get location details</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#move-files-to-this-location">Move files to this location</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#browse-location-path">Browse location path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#sword-collection">SWORD collection</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/api-reference.html#ss-package-rst">Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#get-all-packages">Get all packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#create-new-package">Create new package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#get-package-details">Get package details</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#update-package-contents">Update package contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#update-package-metadata">Update package metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#delete-package-request">Delete package request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#recover-aip-request">Recover AIP request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#download-single-file">Download single file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#download-package">Download package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#get-pointer-file">Get pointer file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#check-fixity">Check fixity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#aip-storage-callback-request">AIP storage callback request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#get-file-information-for-package">Get file information for package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#update-file-information-for-package">Update file information for package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#delete-file-information-for-package">Delete file information for package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#query-file-information-on-packages">Query file information on packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#reingest-aip">Reingest AIP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#move-package">Move package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/api-reference.html#sword-endpoints">SWORD endpoints</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -137,11 +202,11 @@
         <li class="right" >
           <a href="../contents.html" title="Archivematica documentation contents"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../contents.html">Archivematica 1.9.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../contents.html">Archivematica 1.11.x documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Artefactual Systems Inc..
+        &#169; Copyright 2020, Artefactual Systems Inc..
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.1.
     </div>
   </body>
