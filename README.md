@@ -1,3 +1,7 @@
+**This is now part of https://github.com/artefactual/archivematica-docs.**
+
+---
+
 # API documentation project
 
 Currently, information about APIs is sprinkled throughout Archivematica's documentation library. Our developers, clients, and community have expressed the need for a single, clear, access point to understand the capabilities of the Archivematica API and Storage Service API. With potential overlap between the two mechanisms, this might be a single resource that describes both. This may also improve visibility of the APIs capabilities to the community and potentially increase its usage. This would bring with it other advantages such as making Archivematica a "household" name, so to speak.
